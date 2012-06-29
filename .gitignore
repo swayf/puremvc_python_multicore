@@ -2,6 +2,7 @@
 
 .idea
 .venv
+docs
 
 # Packages
 *.egg
