@@ -1,7 +1,7 @@
 from distutils.core import setup
 
-setup(name='PureMVC',
-      version='1.2',
+setup(name='PureMVC Adapted',
+      version='1.0',
       description='PureMVC Python Framework',
       author='Toby de Havilland',
       author_email='toby.de.havilland@puremvc.org',
