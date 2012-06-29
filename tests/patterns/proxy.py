@@ -9,14 +9,14 @@ class ProxyTest(unittest.TestCase):
         """ProxyTest: Test Name Accessor"""
 
         prxy = Proxy('TestProxy')
-        self.assertEqual(True, prxy.getProxyName() == 'TestProxy')
+        self.assertEqual(True, prxy.get_proxy_name() == 'TestProxy')
 
     def testDataAccessors(self):
         """ProxyTest: Test Data Accessors"""
 
         prxy = Proxy('colors')
-        prxy.setData(['red', 'green', 'blue'])
-        data = prxy.getData()
+        prxy.set_data(['red', 'green', 'blue'])
+        data = prxy.get_data()
 
         self.assertEqual(True, len(data) == 3)
         self.assertEqual(True, data[0]  == 'red')
@@ -27,10 +27,10 @@ class ProxyTest(unittest.TestCase):
         """ProxyTest: Test Constructor"""
 
         prxy = Proxy('colors',['red', 'green', 'blue'])
-        data = prxy.getData()
+        data = prxy.get_data()
 
         self.assertEqual(True, prxy is not None)
-        self.assertEqual(True, prxy.getProxyName() == 'colors')
+        self.assertEqual(True, prxy.get_proxy_name() == 'colors')
         self.assertEqual(True, len(data) == 3)
         self.assertEqual(True, data[0]  == 'red')
         self.assertEqual(True, data[1]  == 'green')

@@ -1,4 +1,5 @@
 """
+ PureMVC Multicore Port, pep8 by Oleg Butovich <obutovich@gmail.com>
  PureMVC Python Port by Toby de Havilland <toby.de.havilland@puremvc.org>
  PureMVC - Copyright(c) 2006-08 Futurescale, Inc., Some rights reserved.
  Your reuse is governed by the Creative Commons Attribution 3.0 License
@@ -29,33 +30,35 @@ class Proxy(Notifier, IProxy, INotifier):
 
     NAME = None
     facade = None
-    proxyName = None
+    proxy_name = None
     data = None
 
-    def __init__(self, proxyName=None, data=None):
+    def __init__(self, proxy_name=None, data=None):
         """
         Proxy Constructor
 
-        @param proxyName: the name of the proxy instance (optional)
+        @param proxy_name: the name of the proxy instance (optional)
         @param data: the proxy data (optional)
         """
         self.__class__.NAME = self.__class__.NAME or self.__class__.__name__
-        proxyName = proxyName or self.NAME
-        if proxyName is None:
+        proxy_name = proxy_name or self.NAME
+        if proxy_name is None:
             raise ValueError("Proxy name cannot be None")
-        self.proxyName = proxyName
+        self.proxy_name = proxy_name
         if data:
-            self.setData(data)
+            self.set_data(data)
 
-    def getProxyName(self):
+
+    def get_proxy_name(self):
         """
         Get the Proxy name
 
         @return: the proxy name
         """
-        return self.proxyName
+        return self.proxy_name
 
-    def setData(self, data):
+
+    def set_data(self, data):
         """
         Set the Proxy data
 
@@ -63,7 +66,8 @@ class Proxy(Notifier, IProxy, INotifier):
         """
         self.data = data
 
-    def getData(self):
+
+    def get_data(self):
         """
         Get the proxy data
 
@@ -71,13 +75,15 @@ class Proxy(Notifier, IProxy, INotifier):
         """
         return self.data
 
-    def onRegister(self):
+
+    def on_register(self):
         """
         Called by the Model when the Proxy is registered
         """
         pass
 
-    def onRemove(self):
+
+    def on_remove(self):
         """
         Called by the Model when the Proxy is removed
         """

@@ -17,11 +17,11 @@ class ModelTest(unittest.TestCase):
         self.assertEqual(True, isinstance(model, IModel))
 
     def testRegisterAndRetrieveProxy(self):
-        """ModelTest: Test registerProxy() and retrieveProxy()"""
+        """ModelTest: Test register_proxy() and retrieve_proxy()"""
         model = Model('test')
-        model.registerProxy(Proxy('colors', ['red', 'green', 'blue']))
-        testProxy = model.retrieveProxy('colors')
-        data = testProxy.getData()
+        model.register_proxy(Proxy('colors', ['red', 'green', 'blue']))
+        testProxy = model.retrieve_proxy('colors')
+        data = testProxy.get_data()
 
         self.assertNotEqual(None, data)
         self.assertEqual(True, isinstance(data, list))
@@ -31,43 +31,43 @@ class ModelTest(unittest.TestCase):
         self.assertEqual(True, data[2]  == 'blue' )
 
     def testRegisterAndRemoveProxy(self):
-        """ModelTest: Test registerProxy() and removeProxy()"""
+        """ModelTest: Test register_proxy() and remove_proxy()"""
         model = Model('test')
         testProxy = Proxy('sizes', ['7', '13', '21'])
-        model.registerProxy(testProxy)
+        model.register_proxy(testProxy)
 
-        removedProxy = model.removeProxy('sizes')
+        removedProxy = model.remove_proxy('sizes')
 
-        self.assertEqual(True,removedProxy.getProxyName() == 'sizes')
+        self.assertEqual(True,removedProxy.get_proxy_name() == 'sizes')
 
-        testProxy = model.retrieveProxy('sizes')
+        testProxy = model.retrieve_proxy('sizes')
 
         self.assertEqual(None, testProxy)
 
     def testHasProxy(self):
-        """ModelTest: Test hasProxy()"""
+        """ModelTest: Test has_proxy()"""
 
         model = Model('test')
         testProxy = Proxy('aces', ['clubs', 'spades', 'hearts', 'diamonds'])
-        model.registerProxy(testProxy)
+        model.register_proxy(testProxy)
 
-        self.assertEqual(True, model.hasProxy('aces'))
+        self.assertEqual(True, model.has_proxy('aces'))
 
-        model.removeProxy('aces')
+        model.remove_proxy('aces')
 
-        self.assertEqual(False, model.hasProxy('aces'))
+        self.assertEqual(False, model.has_proxy('aces'))
 
 
     def testOnRegisterAndOnRemove(self):
-        """ModelTest: Test onRegister() and onRemove()"""
+        """ModelTest: Test on_register() and on_remove()"""
 
         model = Model('test')
 
         testProxy = utils.model.ModelTestProxy()
-        model.registerProxy(testProxy)
+        model.register_proxy(testProxy)
 
-        self.assertEqual(True, testProxy.getData() == utils.model.ModelTestProxy.ON_REGISTER_CALLED)
+        self.assertEqual(True, testProxy.get_data() == utils.model.ModelTestProxy.ON_REGISTER_CALLED)
 
-        model.removeProxy(utils.model.ModelTestProxy.NAME)
+        model.remove_proxy(utils.model.ModelTestProxy.NAME)
 
-        self.assertEqual(True, testProxy.getData() == utils.model.ModelTestProxy.ON_REMOVE_CALLED)
+        self.assertEqual(True, testProxy.get_data() == utils.model.ModelTestProxy.ON_REMOVE_CALLED)

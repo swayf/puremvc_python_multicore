@@ -1,4 +1,5 @@
 """
+ PureMVC Multicore Port, pep8 by Oleg Butovich <obutovich@gmail.com>
  PureMVC Python Port by Toby de Havilland <toby.de.havilland@puremvc.org>
  PureMVC - Copyright(c) 2006-08 Futurescale, Inc., Some rights reserved.
  Your reuse is governed by the Creative Commons Attribution 3.0 License
@@ -16,7 +17,7 @@ class Notifier(INotifier):
     all have a need to send C{Notifications}.
 
     The C{INotifier} interface provides a common method called
-    C{sendNotification} that relieves implementation code of
+    C{send_notification} that relieves implementation code of
     the necessity to actually construct C{Notifications}.
 
     The C{Notifier} class, which all of the above mentioned classes
@@ -41,20 +42,20 @@ class Notifier(INotifier):
         return Facade(self.multiton_key)
 
 
-    def sendNotification(self, notificationName, body=None, type=None):
+    def send_notification(self, notification_name, body=None, type=None):
         """
         Create and send an C{INotification}.
 
         Keeps us from having to construct new INotification
         instances in our implementation code.
 
-        @param notificationName: the name of the notification to send
+        @param notification_name: the name of the notification to send
         @param body: the body of the notification (optional)
         @param type: the type of the notification (optional)
         """
-        self.facade.sendNotification(notificationName, body, type)
+        self.facade.send_notification(notification_name, body, type)
 
 
-    def initializeNotifier(self, key):
+    def initialize_notifier(self, key):
         self.multiton_key = key
 

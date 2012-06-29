@@ -7,18 +7,18 @@ class ObserverTest(unittest.TestCase):
     __observerTestVar = None
 
     def __observerTestMethod(self,note):
-        self.__observerTestVar = note.getBody()
+        self.__observerTestVar = note.get_body()
 
     def testObserverAccessors(self):
         """ObserverTest: Test Observer Accessors"""
 
         obsrvr = Observer(None,None)
-        obsrvr.setNotifyContext(self)
+        obsrvr.set_notify_context(self)
 
-        obsrvr.setNotifyMethod(self.__observerTestMethod)
+        obsrvr.set_notify_method(self.__observerTestMethod)
 
         note = Notification('ObserverTestNote',10)
-        obsrvr.notifyObserver(note)
+        obsrvr.notify_observer(note)
 
         self.assertEqual(True, self.__observerTestVar == 10)
 
@@ -28,40 +28,40 @@ class ObserverTest(unittest.TestCase):
         obsrvr = Observer(self.__observerTestMethod,self)
 
         note = Notification('ObserverTestNote',5)
-        obsrvr.notifyObserver(note)
+        obsrvr.notify_observer(note)
 
         self.assertEqual(True, self.__observerTestVar == 5)
 
     def testCompareNotifyContext(self):
-        """ObserverTest: Test compareNotifyContext()"""
+        """ObserverTest: Test compare_notify_context()"""
 
         obsrvr = Observer(self.__observerTestMethod, self)
 
         negTestObj = object()
 
-        self.assertEqual(False, obsrvr.compareNotifyContext(negTestObj))
-        self.assertEqual(True, obsrvr.compareNotifyContext(self))
+        self.assertEqual(False, obsrvr.compare_notify_context(negTestObj))
+        self.assertEqual(True, obsrvr.compare_notify_context(self))
 
     def testNameAccessors(self):
         """NotificationTest: Test Name Accessors"""
 
         note = Notification('TestNote')
 
-        self.assertEqual(True, note.getName() == 'TestNote')
+        self.assertEqual(True, note.get_name() == 'TestNote')
 
     def testBodyAccessors(self):
         """NotificationTest: Test Body Accessors"""
 
         note = Notification(None)
-        note.setBody(5)
+        note.set_body(5)
 
-        self.assertEqual(True, note.getBody() == 5)
+        self.assertEqual(True, note.get_body() == 5)
 
     def testConstructor(self):
         """NotificationTest: Test Constructor"""
 
         note = Notification('TestNote',5,'TestNoteType')
 
-        self.assertEqual(True, note.getName() == 'TestNote')
-        self.assertEqual(True, note.getBody() == 5)
-        self.assertEqual(True, note.getType() == 'TestNoteType')
+        self.assertEqual(True, note.get_name() == 'TestNote')
+        self.assertEqual(True, note.get_body() == 5)
+        self.assertEqual(True, note.get_type() == 'TestNoteType')

@@ -1,4 +1,5 @@
 """
+ PureMVC Multicore Port, pep8 by Oleg Butovich <obutovich@gmail.com>
  PureMVC Python Port by Toby de Havilland <toby.de.havilland@puremvc.org>
  PureMVC - Copyright(c) 2006-08 Futurescale, Inc., Some rights reserved.
  Your reuse is governed by the Creative Commons Attribution 3.0 License
@@ -47,7 +48,7 @@ class Controller(IController):
     Controller.
 
     The simplest way is to subclass C{Facade},
-    and use its C{initializeController} method to add your
+    and use its C{initialize_controller} method to add your
     registrations.
 
     @see: L{View<puremvc_multicore.core.view.View>}
@@ -75,20 +76,20 @@ class Controller(IController):
         self.command_map = {}
 
 
-    def executeCommand(self, note):
+    def execute_command(self, note):
         """
         If an C{ICommand} has previously been registered
         to handle a the given C{INotification}, then it is executed.
 
         @param note: an C{INotification}
         """
-        commandClassRef = self.command_map.get(note.getName(),None)
-        if commandClassRef is not None:
-            commandInstance = commandClassRef()
-            commandInstance.execute(note)
+        command_class_ref = self.command_map.get(note.get_name(),None)
+        if command_class_ref is not None:
+            command_instance = command_class_ref()
+            command_instance.execute(note)
 
 
-    def registerCommand(self, notificationName, commandClassRef):
+    def register_command(self, notification_name, command_class_ref):
         """
         Register a particular C{ICommand} class as the handler
         for a particular C{INotification}.
@@ -100,34 +101,34 @@ class Controller(IController):
         The Observer for the new ICommand is only created if this the
         first time an ICommand has been registered for this Notification name.
 
-        @param notificationName: the name of the C{INotification}
-        @param commandClassRef: the C{Class} of the C{ICommand}
+        @param notification_name: the name of the C{INotification}
+        @param command_class_ref: the C{Class} of the C{ICommand}
         """
-        if self.command_map.get(notificationName,None) is None:
-            self.view.registerObserver(notificationName, Observer(self.executeCommand, self))
+        if self.command_map.get(notification_name,None) is None:
+            self.view.register_observer(notification_name, Observer(self.execute_command, self))
 
-        self.command_map[notificationName] = commandClassRef
+        self.command_map[notification_name] = command_class_ref
 
 
-    def hasCommand(self, notificationName):
+    def has_command(self, notification_name):
         """
         Check if a Command is registered for a given Notification
 
-        @param notificationName: the name of the C{INotification}
-        @return: whether a Command is currently registered for the given C{notificationName}.
+        @param notification_name: the name of the C{INotification}
+        @return: whether a Command is currently registered for the given C{notification_name}.
         """
-        return self.command_map.get(notificationName,None) is not None
+        return self.command_map.get(notification_name,None) is not None
 
 
-    def removeCommand(self, notificationName):
+    def remove_command(self, notification_name):
         """
         Remove a previously registered C{ICommand} to C{INotification} mapping.
 
-        @param notificationName: the name of the C{INotification} to remove the C{ICommand} mapping for
+        @param notification_name: the name of the C{INotification} to remove the C{ICommand} mapping for
         """
-        if self.hasCommand(notificationName):
-            self.view.removeObserver(notificationName, self)
-            del self.command_map[notificationName]
+        if self.has_command(notification_name):
+            self.view.remove_observer(notification_name, self)
+            del self.command_map[notification_name]
 
 
 
@@ -181,48 +182,48 @@ class Model(IModel):
         self.proxy_map = {}
 
 
-    def registerProxy(self, proxy):
+    def register_proxy(self, proxy):
         """
         Register an C{IProxy} with the C{Model}.
 
         @param proxy: an C{IProxy} to be held by the C{Model}.
         """
-        proxy.initializeNotifier(self.multiton_key)
-        self.proxy_map[proxy.getProxyName()] = proxy
-        proxy.onRegister()
+        proxy.initialize_notifier(self.multiton_key)
+        self.proxy_map[proxy.get_proxy_name()] = proxy
+        proxy.on_register()
 
 
-    def retrieveProxy(self, proxyName):
+    def retrieve_proxy(self, proxy_name):
         """
         Retrieve an C{IProxy} from the C{Model}.
 
-        @param proxyName: the name of the C{IProxy}
-        @return: the C{IProxy} instance previously registered with the given C{proxyName}.
+        @param proxy_name: the name of the C{IProxy}
+        @return: the C{IProxy} instance previously registered with the given C{proxy_name}.
         """
-        return self.proxy_map.get(proxyName,None)
+        return self.proxy_map.get(proxy_name,None)
 
 
-    def hasProxy(self, proxyName):
+    def has_proxy(self, proxy_name):
         """
         Check if a Proxy is registered
 
-        @param proxyName: the name of the C{IProxy}
-        @return: whether a Proxy is currently registered with the given C{proxyName}.
+        @param proxy_name: the name of the C{IProxy}
+        @return: whether a Proxy is currently registered with the given C{proxy_name}.
         """
-        return self.proxy_map.get(proxyName,None) is not None
+        return self.proxy_map.get(proxy_name,None) is not None
 
 
-    def removeProxy(self, proxyName):
+    def remove_proxy(self, proxy_name):
         """
         Remove an C{IProxy} from the C{Model}.
 
-        @param proxyName: name of the C{IProxy} instance to be removed.
+        @param proxy_name: name of the C{IProxy} instance to be removed.
         @return: the C{IProxy} that was removed from the C{Model}
         """
-        proxy = self.proxy_map.get(proxyName,None)
+        proxy = self.proxy_map.get(proxy_name,None)
         if proxy:
-            del self.proxy_map[proxyName]
-            proxy.onRemove()
+            del self.proxy_map[proxy_name]
+            proxy.on_remove()
         return proxy
 
 
@@ -280,20 +281,20 @@ class View(IView):
         self.mediator_map = {}
 
 
-    def registerObserver(self, notificationName, observer):
+    def register_observer(self, notification_name, observer):
         """
         Register an C{IObserver} to be notified
         of C{INotifications} with a given name.
 
-        @param notificationName: the name of the C{INotifications} to notify this C{IObserver} of
+        @param notification_name: the name of the C{INotifications} to notify this C{IObserver} of
         @param observer: the C{IObserver} to register
         """
-        if not notificationName in self.observer_map:
-            self.observer_map[notificationName] = []
-        self.observer_map[notificationName].append(observer)
+        if not notification_name in self.observer_map:
+            self.observer_map[notification_name] = []
+        self.observer_map[notification_name].append(observer)
 
 
-    def notifyObservers(self, notification):
+    def notify_observers(self, notification):
         """
         Notify the C{IObservers} for a particular C{INotification}.
 
@@ -303,30 +304,30 @@ class View(IView):
 
         @param notification: the C{INotification} to notify C{IObservers} of.
         """
-        observers = self.observer_map.get(notification.getName(), [])[:]
+        observers = self.observer_map.get(notification.get_name(), [])[:]
         for obsvr in observers:
-            obsvr.notifyObserver(notification)
+            obsvr.notify_observer(notification)
 
 
-    def removeObserver(self, notificationName, notifyContext):
+    def remove_observer(self, notification_name, notify_context):
         """
-        Remove the observer for a given notifyContext from an observer list for a given Notification name.
+        Remove the observer for a given notify_context from an observer list for a given Notification name.
 
-        @param notificationName: which observer list to remove from
-        @param notifyContext: remove the observer with this object as its notifyContext
+        @param notification_name: which observer list to remove from
+        @param notify_context: remove the observer with this object as its notify_context
         """
-        observers = self.observer_map[notificationName]
+        observers = self.observer_map[notification_name]
 
         for i in range(len(observers)-1, -1, -1):
-            if observers[i].compareNotifyContext(notifyContext):
+            if observers[i].compare_notify_context(notify_context):
                 observers.pop(i)
                 break
 
         if not observers:
-            del self.observer_map[notificationName]
+            del self.observer_map[notification_name]
 
 
-    def registerMediator(self, mediator):
+    def register_mediator(self, mediator):
         """
         Register an C{IMediator} instance with the C{View}.
 
@@ -336,67 +337,67 @@ class View(IView):
 
         If the C{IMediator} returns any C{INotification}
         names to be notified about, an C{Observer} is created encapsulating
-        the C{IMediator} instance's C{handleNotification} method
+        the C{IMediator} instance's C{handle_notification} method
         and registering it as an C{Observer} for all C{INotifications} the
         C{IMediator} is interested in.
 
         @param mediator: a reference to the C{IMediator} instance
         """
-        # do not allow re-registration (you must to removeMediator fist)
-        if mediator.getMediatorName() in self.mediator_map:
+        # do not allow re-registration (you must to remove_mediator fist)
+        if mediator.get_mediator_name() in self.mediator_map:
             return
 
-        mediator.initializeNotifier(self.multiton_key)
-        self.mediator_map[mediator.getMediatorName()] = mediator
-        interests = mediator.listNotificationInterests()
+        mediator.initialize_notifier(self.multiton_key)
+        self.mediator_map[mediator.get_mediator_name()] = mediator
+        interests = mediator.list_notification_interests()
         if len(interests) > 0:
-            obsvr = Observer(mediator.handleNotification, mediator)
+            obsvr = Observer(mediator.handle_notification, mediator)
 
             for i in range(0,len(interests)):
-                self.registerObserver(interests[i], obsvr)
+                self.register_observer(interests[i], obsvr)
 
-        mediator.onRegister()
+        mediator.on_register()
 
 
-    def retrieveMediator(self, mediatorName):
+    def retrieve_mediator(self, mediator_name):
         """
         Retrieve an C{IMediator} from the C{View}.
 
-        @param mediatorName: the name of the C{IMediator} instance to retrieve.
-        @return: the C{IMediator} instance previously registered with the given C{mediatorName}.
+        @param mediator_name: the name of the C{IMediator} instance to retrieve.
+        @return: the C{IMediator} instance previously registered with the given C{mediator_name}.
         """
-        return self.mediator_map.get(mediatorName,None)
+        return self.mediator_map.get(mediator_name,None)
 
 
-    def removeMediator(self, mediatorName):
+    def remove_mediator(self, mediator_name):
         """
         Remove an C{IMediator} from the C{View}.
 
-        @param mediatorName: name of the C{IMediator} instance to be removed.
+        @param mediator_name: name of the C{IMediator} instance to be removed.
         @return: the C{IMediator} that was removed from the C{View}
         """
         for notificationName in self.observer_map.keys():
             observers = self.observer_map[notificationName]
             for i in range(len(observers)-1, -1, -1):
-                if observers[i].compareNotifyContext(self.retrieveMediator(mediatorName)):
+                if observers[i].compare_notify_context(self.retrieve_mediator(mediator_name)):
                     observers.pop(i)
 
             if not observers:
                 del self.observer_map[notificationName]
 
-        mediator = self.mediator_map.get(mediatorName,None)
+        mediator = self.mediator_map.get(mediator_name,None)
 
         if mediator is not None:
-            del self.mediator_map[mediatorName]
-            mediator.onRemove()
+            del self.mediator_map[mediator_name]
+            mediator.on_remove()
         return mediator
 
 
-    def hasMediator(self, mediatorName):
+    def has_mediator(self, mediator_name):
         """
         Check if a Mediator is registered or not
 
-        @param mediatorName: the name of the C{IMediator}
-        @return: whether a Mediator is registered with the given C{mediatorName}.
+        @param mediator_name: the name of the C{IMediator}
+        @return: whether a Mediator is registered with the given C{mediator_name}.
         """
-        return self.mediator_map.get(mediatorName,None) is not None
+        return self.mediator_map.get(mediator_name,None) is not None

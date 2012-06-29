@@ -18,44 +18,44 @@ class ControllerTest(unittest.TestCase):
         self.assertEqual(True, isinstance(controller, IController))
 
     def testRegisterAndExecuteCommand(self):
-        """ControllerTest: Test registerCommand() and executeCommand()"""
+        """ControllerTest: Test register_command() and execute_command()"""
         controller = Controller('test')
-        controller.registerCommand('ControllerTest', utils.controller.ControllerTestCommand)
+        controller.register_command('ControllerTest', utils.controller.ControllerTestCommand)
 
         vo = utils.controller.ControllerTestVO(12)
         note = Notification('ControllerTest', vo)
 
-        controller.executeCommand(note)
+        controller.execute_command(note)
 
         self.assertEqual(True, vo.result == 24 )
 
     def testRegisterAndRemoveCommand(self):
-        """ControllerTest: Test registerCommand() and removeCommand()"""
+        """ControllerTest: Test register_command() and remove_command()"""
         controller = Controller('test')
-        controller.registerCommand('ControllerRemoveTest', utils.controller.ControllerTestCommand)
+        controller.register_command('ControllerRemoveTest', utils.controller.ControllerTestCommand)
 
         vo = utils.controller.ControllerTestVO(12)
         note = Notification('ControllerRemoveTest', vo)
 
-        controller.executeCommand(note)
+        controller.execute_command(note)
 
         self.assertEqual(True, vo.result == 24 )
 
         vo.result = 0
 
-        controller.removeCommand('ControllerRemoveTest')
-        controller.executeCommand(note)
+        controller.remove_command('ControllerRemoveTest')
+        controller.execute_command(note)
 
         self.assertEqual(True, vo.result == 0)
 
     def testHasCommand(self):
-        """ControllerTest: Test hasCommand()"""
+        """ControllerTest: Test has_command()"""
 
         controller = Controller('test')
-        controller.registerCommand('hasCommandTest', utils.controller.ControllerTestCommand)
+        controller.register_command('hasCommandTest', utils.controller.ControllerTestCommand)
 
-        self.assertEqual(True, controller.hasCommand('hasCommandTest'))
+        self.assertEqual(True, controller.has_command('hasCommandTest'))
 
-        controller.removeCommand('hasCommandTest')
+        controller.remove_command('hasCommandTest')
 
-        self.assertEqual(False, controller.hasCommand('hasCommandTest'))
+        self.assertEqual(False, controller.has_command('hasCommandTest'))

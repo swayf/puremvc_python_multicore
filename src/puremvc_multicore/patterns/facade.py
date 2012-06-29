@@ -1,4 +1,5 @@
 """
+ PureMVC Multicore Port, pep8 by Oleg Butovich <obutovich@gmail.com>
  PureMVC Python Port by Toby de Havilland <toby.de.havilland@puremvc.org>
  PureMVC - Copyright(c) 2006-08 Futurescale, Inc., Some rights reserved.
  Your reuse is governed by the Creative Commons Attribution 3.0 License
@@ -65,13 +66,13 @@ class Facade(IFacade):
         subclass to do any subclass specific initializations. Be
         sure to call C{Facade.initializeFacade()}, though.
         """
-        self.initializeNotifier(key)
-        self.initializeController()
-        self.initializeModel()
-        self.initializeView()
+        self.initialize_notifier(key)
+        self.initialize_controller()
+        self.initialize_model()
+        self.initialize_view()
 
 
-    def initializeController(self):
+    def initialize_controller(self):
         """
         Initialize the C{Controller}.
 
@@ -83,7 +84,7 @@ class Facade(IFacade):
         You have C{Commands} to register with the C{Controller} at startup.
 
         If you don't want to initialize a different C{IController},
-        call C{super.initializeController()} at the beginning of your method, then register C{Proxy}s.
+        call C{super.initialize_controller()} at the beginning of your method, then register C{Proxy}s.
 
         Note: This method is I{rarely} overridden; in practice you are more
         likely to use a C{Command} to create and register C{Proxy}s
@@ -95,7 +96,7 @@ class Facade(IFacade):
             self.controller = Controller(self.multiton_key)
 
 
-    def initializeModel(self):
+    def initialize_model(self):
         """
         Initialize the C{Model}.
 
@@ -109,7 +110,7 @@ class Facade(IFacade):
         retrieve a reference to the Facade at construction time.
 
         If you don't want to initialize a different C{IModel},
-        call C{super.initializeModel()} at the beginning of your
+        call C{super.initialize_model()} at the beginning of your
         method, then register C{Proxy}s.
 
         Note: This method is I{rarely} overridden; in practice you are more
@@ -122,7 +123,7 @@ class Facade(IFacade):
             self.model = Model(self.multiton_key)
 
 
-    def initializeView(self):
+    def initialize_view(self):
         """
         Initialize the C{View}.
 
@@ -136,7 +137,7 @@ class Facade(IFacade):
         You have C{Observers} to register with the C{View}
 
         If you don't want to initialize a different C{IView},
-        call C{super.initializeView()} at the beginning of your
+        call C{super.initialize_view()} at the beginning of your
         method, then register C{IMediator} instances.
 
         Note: This method is I{rarely} overridden; in practice you are more
@@ -149,135 +150,135 @@ class Facade(IFacade):
             self.view = View(self.multiton_key)
 
 
-    def registerCommand(self, notificationName, commandClassRef):
+    def register_command(self, notificationName, command_class_ref):
         """
         Register an C{ICommand} with the C{Controller} by Notification name.
 
         @param notificationName: the name of the C{INotification} to associate the C{ICommand} with
-        @param commandClassRef: a reference to the Class of the C{ICommand}
+        @param command_class_ref: a reference to the Class of the C{ICommand}
         """
-        self.controller.registerCommand(notificationName, commandClassRef)
+        self.controller.register_command(notificationName, command_class_ref)
 
 
-    def removeCommand(self, notificationName):
+    def remove_command(self, notification_name):
         """
         Remove a previously registered C{ICommand} to C{INotification} mapping from the Controller.
 
-        @param notificationName: the name of the C{INotification} to remove the C{ICommand} mapping for
+        @param notification_name: the name of the C{INotification} to remove the C{ICommand} mapping for
         """
-        self.controller.removeCommand(notificationName)
+        self.controller.remove_command(notification_name)
 
 
-    def hasCommand(self, notificationName):
+    def has_command(self, notification_name):
         """
         Check if a Command is registered for a given Notification
 
-        @param notificationName: the name of the C{INotification}
-        @return: whether a Command is currently registered for the given C{notificationName}.
+        @param notification_name: the name of the C{INotification}
+        @return: whether a Command is currently registered for the given C{notification_name}.
         """
-        return self.controller.hasCommand(notificationName)
+        return self.controller.has_command(notification_name)
 
 
-    def registerProxy(self, proxy):
+    def register_proxy(self, proxy):
         """
         Register an C{IProxy} with the C{Model} by name.
 
         @param proxy: the C{IProxy} instance to be registered with the C{Model}.
         """
-        self.model.registerProxy(proxy)
+        self.model.register_proxy(proxy)
 
 
-    def retrieveProxy(self, proxyName):
+    def retrieve_proxy(self, proxy_name):
         """
         Retrieve an C{IProxy} from the C{Model} by name.
 
-        @param proxyName: the name of the proxy to be retrieved.
-        @return: the C{IProxy} instance previously registered with the given C{proxyName}.
+        @param proxy_name: the name of the proxy to be retrieved.
+        @return: the C{IProxy} instance previously registered with the given C{proxy_name}.
         """
-        return self.model.retrieveProxy(proxyName)
+        return self.model.retrieve_proxy(proxy_name)
 
 
-    def removeProxy(self, proxyName):
+    def remove_proxy(self, proxy_name):
         """
         Remove an C{IProxy} from the C{Model} by name.
 
-        @param proxyName: the C{IProxy} to remove from the C{Model}.
+        @param proxy_name: the C{IProxy} to remove from the C{Model}.
         @return: the C{IProxy} that was removed from the C{Model}
         """
         proxy = None
         if self.model is not None:
-            proxy = self.model.removeProxy(proxyName)
+            proxy = self.model.remove_proxy(proxy_name)
         return proxy
 
 
-    def hasProxy(self, proxyName):
+    def has_proxy(self, proxy_name):
         """
         Check if a Proxy is registered
 
-        @param proxyName: the name of the C{IProxy}
-        @return: whether a Proxy is currently registered with the given C{proxyName}.
+        @param proxy_name: the name of the C{IProxy}
+        @return: whether a Proxy is currently registered with the given C{proxy_name}.
         """
-        return self.model.hasProxy(proxyName)
+        return self.model.has_proxy(proxy_name)
 
 
-    def registerMediator(self, mediator):
+    def register_mediator(self, mediator):
         """
         Register a C{IMediator} with the C{View}.
 
         @param mediator: a reference to the C{IMediator}
         """
         if self.view is not None:
-            self.view.registerMediator(mediator)
+            self.view.register_mediator(mediator)
 
 
-    def retrieveMediator(self, mediatorName):
+    def retrieve_mediator(self, mediator_name):
         """
         Retrieve an C{IMediator} from the C{View}.
 
-        @param mediatorName: the name of the C{IMediator}
-        @return: the C{IMediator} previously registered with the given C{mediatorName}.
+        @param mediator_name: the name of the C{IMediator}
+        @return: the C{IMediator} previously registered with the given C{mediator_name}.
         """
-        return self.view.retrieveMediator(mediatorName)
+        return self.view.retrieve_mediator(mediator_name)
 
 
-    def removeMediator(self, mediatorName):
+    def remove_mediator(self, mediator_name):
         """
         Remove an C{IMediator} from the C{View}.
 
-        @param mediatorName: name of the C{IMediator} to be removed.
+        @param mediator_name: name of the C{IMediator} to be removed.
         @return: the C{IMediator} that was removed from the C{View}
         """
         mediator = None
         if self.view is not None:
-            mediator = self.view.removeMediator(mediatorName)
+            mediator = self.view.remove_mediator(mediator_name)
         return mediator
 
 
-    def hasMediator(self, mediatorName):
+    def has_mediator(self, mediator_name):
         """
         Check if a Mediator is registered or not
 
-        @param mediatorName: the name of the C{IMediator}
-        @return: whether a Mediator is registered with the given C{mediatorName}.
+        @param mediator_name: the name of the C{IMediator}
+        @return: whether a Mediator is registered with the given C{mediator_name}.
         """
-        return self.view.hasMediator(mediatorName)
+        return self.view.has_mediator(mediator_name)
 
 
-    def sendNotification(self, notificationName, body=None, type=None):
+    def send_notification(self, notification_name, body=None, type=None):
         """
         Create and send an C{INotification}.
 
         Keeps us from having to construct new notification
         instances in our implementation code.
 
-        @param notificationName: the name of the notification to send
+        @param notification_name: the name of the notification to send
         @param body: the body of the notification (optional)
         @param type: the type of the notification (optional)
         """
-        self.notifyObservers(Notification(notificationName, body, type))
+        self.notify_observers(Notification(notification_name, body, type))
 
 
-    def notifyObservers(self, notification):
+    def notify_observers(self, notification):
         """
         Notify C{Observer}s.
 
@@ -285,16 +286,16 @@ class Facade(IFacade):
         compatibility, and to allow you to send custom
         notification classes using the facade.
 
-        Usually you should just call sendNotification
+        Usually you should just call send_notification
         and pass the parameters, never having to
         construct the notification yourself.
 
         @param notification: the C{INotification} to have the C{View} notify C{Observers} of.
         """
         if self.view is not None:
-            self.view.notifyObservers(notification)
+            self.view.notify_observers(notification)
 
 
-    def initializeNotifier(self, key):
+    def initialize_notifier(self, key):
         self.multiton_key = key
 

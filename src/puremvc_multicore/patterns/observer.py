@@ -1,4 +1,5 @@
 """
+ PureMVC Multicore Port, pep8 by Oleg Butovich <obutovich@gmail.com>
  PureMVC Python Port by Toby de Havilland <toby.de.havilland@puremvc.org>
  PureMVC - Copyright(c) 2006-08 Futurescale, Inc., Some rights reserved.
  Your reuse is governed by the Creative Commons Attribution 3.0 License
@@ -30,38 +31,41 @@ class Observer(IObserver):
     notify = None
     context = None
 
-    def __init__(self, notifyMethod, notifyContext):
+    def __init__(self, notify_method, notify_context):
         """
         Constructor.
 
         The notification method on the interested object should take
         one parameter of type C{INotification}
 
-        @param notifyMethod: the notification method of the interested object
-        @param notifyContext: the notification context of the interested object
+        @param notify_method: the notification method of the interested object
+        @param notify_context: the notification context of the interested object
         """
-        self.setNotifyMethod(notifyMethod)
-        self.setNotifyContext(notifyContext)
+        self.set_notify_method(notify_method)
+        self.set_notify_context(notify_context)
 
-    def setNotifyMethod(self, notifyMethod):
+
+    def set_notify_method(self, notify_method):
         """
         Set the notification method.
 
         The notification method should take one parameter of type C{INotification}.
 
-        @param notifyMethod: the notification (callback) method of the interested object.
+        @param notify_method: the notification (callback) method of the interested object.
         """
-        self.notify = notifyMethod
+        self.notify = notify_method
 
-    def setNotifyContext(self, notifyContext):
+
+    def set_notify_context(self, notify_context):
         """
         Set the notification context.
 
-        @param notifyContext: the notification context (this) of the interested object.
+        @param notify_context: the notification context (this) of the interested object.
         """
-        self.context = notifyContext
+        self.context = notify_context
 
-    def getNotifyMethod(self):
+
+    def get_notify_method(self):
         """
         Get the notification method.
 
@@ -69,7 +73,8 @@ class Observer(IObserver):
         """
         return self.notify
 
-    def getNotifyContext(self):
+
+    def get_notify_context(self):
         """
         Get the notification context.
 
@@ -77,15 +82,17 @@ class Observer(IObserver):
         """
         return self.context
 
-    def notifyObserver(self, notification):
+
+    def notify_observer(self, notification):
         """
         Notify the interested object.
 
         @param notification: the C{INotification} to pass to the interested object's notification method.
         """
-        self.getNotifyMethod()(notification)
+        self.get_notify_method()(notification)
 
-    def compareNotifyContext(self, obj):
+
+    def compare_notify_context(self, obj):
         """
         Compare an object to the notification context.
 
@@ -145,7 +152,7 @@ class Notification(INotification):
         self.type = type
 
 
-    def getName(self):
+    def get_name(self):
         """
         Get the name of the C{Notification} instance.
 
@@ -154,14 +161,14 @@ class Notification(INotification):
         return self.name
 
 
-    def setBody(self, body):
+    def set_body(self, body):
         """
         Set the body of the C{Notification} instance.
         """
         self.body = body
 
 
-    def getBody(self):
+    def get_body(self):
         """
         Get the body of the C{Notification} instance.
 
@@ -170,14 +177,14 @@ class Notification(INotification):
         return self.body
 
 
-    def setType(self, type):
+    def set_type(self, type):
         """
         Set the type of the C{Notification} instance.
         """
         self.type = type
 
 
-    def getType(self):
+    def get_type(self):
         """
         Get the type of the C{Notification} instance.
 
@@ -192,7 +199,7 @@ class Notification(INotification):
 
         @return: the string representation of the C{Notification} instance.
         """
-        msg = "Notification Name: " + self.getName()
+        msg = "Notification Name: " + self.get_name()
 
         bd = "None"
         if self.body is not None:

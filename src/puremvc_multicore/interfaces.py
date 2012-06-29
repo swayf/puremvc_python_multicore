@@ -1,4 +1,5 @@
 """
+ PureMVC Multicore Port, pep8 by Oleg Butovich <obutovich@gmail.com>
  PureMVC Python Port by Toby de Havilland <toby.de.havilland@puremvc.org>
  PureMVC - Copyright(c) 2006-08 Futurescale, Inc., Some rights reserved.
  Your reuse is governed by the Creative Commons Attribution 3.0 License
@@ -53,18 +54,18 @@ class IController(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def registerCommand(self, notificationName, commandClassRef):
+    def register_command(self, notification_name, command_class_ref):
         """
         Register a particular ICommand class as the handler for a particular INotification.
 
         Args:
-            notificationName: the name of the INotification
-            commandClassRef: the Class of the ICommand
+            notification_name: the name of the INotification
+            command_class_ref: the Class of the ICommand
         """
         pass
 
     @abstractmethod
-    def executeCommand(self, notification):
+    def execute_command(self, notification):
         """
         Execute the ICommand previously registered as the handler for INotifications with the given notification name.
 
@@ -74,26 +75,27 @@ class IController(object):
         pass
 
     @abstractmethod
-    def removeCommand(self, notificationName):
+    def remove_command(self, notification_name):
         """
         Remove a previously registered ICommand to INotification mapping.
 
         Args:
-            notificationName: the name of the INotification to remove the ICommand mapping fo
+            notification_name: the name of the INotification to remove the ICommand mapping fo
         """
         pass
 
     @abstractmethod
-    def hasCommand(self, notificationName):
+    def has_command(self, notification_name):
         """
         Check if a Command is registered for a given Notification
 
         Args:
-            notificationName: the name of the INotification
+            notification_name: the name of the INotification
         Returns:
-            whether a Command is currently registered for the given notificationName.
+            whether a Command is currently registered for the given notification_name.
         """
         pass
+
 
 
 class INotifier(object):
@@ -104,7 +106,7 @@ class INotifier(object):
     all have a need to send Notifications.
 
     The INotifier interface provides a common method called
-    sendNotification that relieves implementation code of
+    send_notification that relieves implementation code of
     the necessity to actually construct Notifications.
 
     The Notifier class, which all of the above mentioned classes
@@ -120,21 +122,21 @@ class INotifier(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def sendNotification(self, notificationName, body = None, type = None):
+    def send_notification(self, notification_name, body = None, type = None):
         """
         Send a INotification.
 
         Convenience method to prevent having to construct new
         notification instances in our implementation code.
 
-        @param notificationName: the name of the notification to send
+        @param notification_name: the name of the notification to send
         @param body: the body of the notification (optional)
         @param type: the type of the notification (optional)
         """
         pass
 
     @abstractmethod
-    def initializeNotifier(self, key):
+    def initialize_notifier(self, key):
         pass
 
 
@@ -157,7 +159,7 @@ class IFacade(INotifier):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def registerProxy(self, proxy):
+    def register_proxy(self, proxy):
         """
         Register an IProxy with the Model by name.
 
@@ -166,66 +168,66 @@ class IFacade(INotifier):
         pass
 
     @abstractmethod
-    def retrieveProxy(self, proxyName):
+    def retrieve_proxy(self, proxy_name):
         """
         Retrieve a IProxy from the Model by name.
 
-        @param proxyName: the name of the IProxy instance to be retrieved.
-        @return: the IProxy previously registered by proxyName with the Model.
+        @param proxy_name: the name of the IProxy instance to be retrieved.
+        @return: the IProxy previously registered by proxy_name with the Model.
         """
-        return None
+        pass
 
     @abstractmethod
-    def removeProxy(self, proxyName):
+    def remove_proxy(self, proxy_name):
         """
         Remove an IProxy instance from the Model by name.
 
-        @param proxyName: the IProxy to remove from the Model.
+        @param proxy_name: the IProxy to remove from the Model.
         @return: the IProxy that was removed from the Model
         """
-        return None
+        pass
 
     @abstractmethod
-    def hasProxy(self, proxyName):
+    def has_proxy(self, proxy_name):
         """
         Check if a Proxy is registered
 
-        @param proxyName:
-        @return: whether a Proxy is currently registered with the given proxyName.
+        @param proxy_name:
+        @return: whether a Proxy is currently registered with the given proxy_name.
         """
-        return False
+        pass
 
     @abstractmethod
-    def registerCommand(self, noteName, commandClassRef):
+    def register_command(self, note_name, command_class_ref):
         """
         Register an ICommand with the Controller.
 
-        @param noteName: the name of the INotification to associate the ICommand with.
-        @param commandClassRef: a reference to the Class of the ICommand.
+        @param note_name: the name of the INotification to associate the ICommand with.
+        @param command_class_ref: a reference to the Class of the ICommand.
         """
         pass
 
     @abstractmethod
-    def removeCommand(self, notificationName):
+    def remove_command(self, notification_name):
         """
          Remove a previously registered ICommand to INotification mapping from the Controller.
 
-        @param notificationName: the name of the INotification to remove the ICommand mapping for
+        @param notification_name: the name of the INotification to remove the ICommand mapping for
         """
         pass
 
     @abstractmethod
-    def hasCommand(self, notificationName):
+    def has_command(self, notification_name):
         """
         Check if a Command is registered for a given Notification
 
-        @param notificationName: the name of the INotification
-        @return: whether a Command is currently registered for the given notificationName.
+        @param notification_name: the name of the INotification
+        @return: whether a Command is currently registered for the given notification_name.
         """
-        return False
+        pass
 
     @abstractmethod
-    def registerMediator(self, mediator):
+    def register_mediator(self, mediator):
         """
         Register an IMediator instance with the View.
 
@@ -234,27 +236,37 @@ class IFacade(INotifier):
         pass
 
     @abstractmethod
-    def retrieveMediator(self, mediatorName):
+    def retrieve_mediator(self, mediator_name):
         """
         Retrieve an IMediator instance from the View.
 
-        @param mediatorName: the name of the IMediator instance to retrieve
-        @return: the IMediator previously registered with the given mediatorName.
+        @param mediator_name: the name of the IMediator instance to retrieve
+        @return: the IMediator previously registered with the given mediator_name.
         """
-        return None
+        pass
 
     @abstractmethod
-    def removeMediator(self, mediatorName):
+    def remove_mediator(self, mediator_name):
         """
         Remove a IMediator instance from the View.
 
-        @param mediatorName: name of the IMediator instance to be removed.
-        @return: the IMediator instance previously registered with the given mediatorName.
+        @param mediator_name: name of the IMediator instance to be removed.
+        @return: the IMediator instance previously registered with the given mediator_name.
         """
-        return None
+        pass
 
     @abstractmethod
-    def notifyObservers(self, note):
+    def has_mediator(self, mediator_name):
+        """
+        Check if a Mediator is registered or not
+
+        @param mediator_name: the name of the C{IMediator}
+        @return: whether a Mediator is registered with the given C{mediator_name}.
+        """
+        pass
+
+    @abstractmethod
+    def notify_observers(self, note):
         """
         Notify the IObservers for a particular INotification.
 
@@ -262,7 +274,7 @@ class IFacade(INotifier):
         and are passed a reference to the INotification in the order in which they were registered.
 
         NOTE: Use this method only if you are sending custom Notifications. Otherwise use the
-        sendNotification method which does not require you to create the Notification instance.
+        send_notification method which does not require you to create the Notification instance.
 
         @param note: the INotification to notify IObservers of.
         """
@@ -292,58 +304,58 @@ class IMediator(object):
 
     Respond to and generate INotifications, interacting with of the rest of the PureMVC app.
 
-    When an IMediator is registered with the IView, the IView will call the IMediator's listNotificationInterests method. The IMediator will
+    When an IMediator is registered with the IView, the IView will call the IMediator's list_notification_interests method. The IMediator will
     return an List of INotification names which
     it wishes to be notified about.
 
 
     The IView will then create an Observer object
-    encapsulating that IMediator's (handleNotification) method
+    encapsulating that IMediator's (handle_notification) method
     and register it as an Observer for each INotification name returned by
-    listNotificationInterests.
+    list_notification_interests.
 
     @see: INotification<puremvc_multicore.interfaces.INotification>
     """
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def getMediatorName(self):
+    def get_mediator_name(self):
         """
         Get the IMediator instance name
 
         @return: the IMediator instance name
         """
-        return ""
+        pass
 
     @abstractmethod
-    def getViewComponent(self):
+    def get_view_component(self):
         """
         Get the IMediator's view component.
 
         @return: the view component
         """
-        return None
+        pass
 
     @abstractmethod
-    def setViewComponent(self, viewComponent):
+    def set_view_component(self, view_component):
         """
         Set the IMediator's view component.
 
-        @param viewComponent: the view component
+        @param view_component: the view component
         """
         pass
 
     @abstractmethod
-    def listNotificationInterests(self):
+    def list_notification_interests(self):
         """
         List INotification interests.
 
         @return: an List of the INotification names this IMediator has an interest in.
         """
-        return []
+        pass
 
     @abstractmethod
-    def handleNotification(self, notification):
+    def handle_notification(self, notification):
         """
         Handle an INotification.
 
@@ -352,14 +364,14 @@ class IMediator(object):
         pass
 
     @abstractmethod
-    def onRegister(self):
+    def on_register(self):
         """
         Called by the View when the Mediator is registered
         """
         pass
 
     @abstractmethod
-    def onRemove(self):
+    def on_remove(self):
         """
         Called by the View when the Mediator is removed
         """
@@ -381,7 +393,7 @@ class IModel(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def registerProxy(self, proxy):
+    def register_proxy(self, proxy):
         """
         Register an IProxy instance with the Model.
 
@@ -390,34 +402,35 @@ class IModel(object):
         pass
 
     @abstractmethod
-    def retrieveProxy(self, proxyName):
+    def retrieve_proxy(self, proxy_name):
         """
         Retrieve an IProxy instance from the Model.
 
-        @param proxyName: name of the IProxy instance to retrieve.
-        @return: the IProxy instance previously registered with the given proxyName.
+        @param proxy_name: name of the IProxy instance to retrieve.
+        @return: the IProxy instance previously registered with the given proxy_name.
         """
-        return None
+        pass
 
     @abstractmethod
-    def removeProxy(self, proxyName):
+    def remove_proxy(self, proxy_name):
         """
         Remove an IProxy instance from the Model.
 
-        @param proxyName: name of the IProxy instance to be removed.
+        @param proxy_name: name of the IProxy instance to be removed.
         @return: the IProxy that was removed from the Model
         """
-        return None
+        pass
 
     @abstractmethod
-    def hasProxy(self, proxyName):
+    def has_proxy(self, proxy_name):
         """
         Check if a Proxy is registered
 
-        @param proxyName: name of the IProxy instance
-        @return: whether a Proxy is currently registered with the given proxyName.
+        @param proxy_name: name of the IProxy instance
+        @return: whether a Proxy is currently registered with the given proxy_name.
         """
-        return False
+        pass
+
 
 
 class INotification(object):
@@ -454,46 +467,46 @@ class INotification(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def getName(self):
+    def get_name(self):
         """
         Get the name of the INotification instance.
         """
-        return ""
+        pass
 
     @abstractmethod
-    def setBody(self, body):
+    def set_body(self, body):
         """
         Set the body of the INotification instance
         """
         pass
 
     @abstractmethod
-    def getBody(self):
+    def get_body(self):
         """
         Get the body of the INotification instance
         """
-        return None
+        pass
 
     @abstractmethod
-    def setType(self, type):
+    def set_type(self, type):
         """
         Set the type of the INotification instance
         """
         pass
 
     @abstractmethod
-    def getType(self):
+    def get_type(self):
         """
         Get the type of the INotification instance
         """
-        return ""
+        pass
 
     @abstractmethod
     def str(self):
         """
         Get the string representation of the INotification instance
         """
-        return ""
+        pass
 
 
 
@@ -527,7 +540,7 @@ class IObserver(object):
     acts as a proxy for notifying the interested object.
 
     Observers can receive Notifications by having their
-    notifyObserver method invoked, passing
+    notify_observer method invoked, passing
     in an object implementing the INotification interface, such
     as a subclass of Notification.
 
@@ -537,27 +550,27 @@ class IObserver(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def setNotifyMethod(self, notifyMethod):
+    def set_notify_method(self, notify_method):
         """
         Set the notification method.
 
         The notification method should take one parameter of type INotification
 
-        @param notifyMethod: the notification (callback) method of the interested object
+        @param notify_method: the notification (callback) method of the interested object
         """
         pass
 
     @abstractmethod
-    def setNotifyContext(self, notifyContext):
+    def set_notify_context(self, notify_context):
         """
         Set the notification context.
 
-        @param notifyContext: the notification context of the interested object
+        @param notify_context: the notification context of the interested object
         """
         pass
 
     @abstractmethod
-    def notifyObserver(self, notification):
+    def notify_observer(self, notification):
         """
         Notify the interested object.
 
@@ -566,7 +579,7 @@ class IObserver(object):
         pass
 
     @abstractmethod
-    def compareNotifyContext(self, object):
+    def compare_notify_context(self, object):
         """
         Compare the given object to the notification context object.
 
@@ -574,6 +587,8 @@ class IObserver(object):
         @return: boolean indicating if the notification context and the object are the same.
         """
         pass
+
+
 
 class IProxy(object):
     """
@@ -596,7 +611,7 @@ class IProxy(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def getProxyName(self):
+    def get_proxy_name(self):
         """
         Get the Proxy name
 
@@ -605,7 +620,7 @@ class IProxy(object):
         pass
 
     @abstractmethod
-    def setData(self, data):
+    def set_data(self, data):
         """
         Set the data object
 
@@ -614,7 +629,7 @@ class IProxy(object):
         pass
 
     @abstractmethod
-    def getData(self):
+    def get_data(self):
         """
         Get the data object
 
@@ -623,14 +638,14 @@ class IProxy(object):
         pass
 
     @abstractmethod
-    def onRegister(self):
+    def on_register(self):
         """
         Called by the Model when the Proxy is registered
         """
         pass
 
     @abstractmethod
-    def onRemove(self):
+    def on_remove(self):
         """
         Called by the Model when the Proxy is removed
         """
@@ -665,17 +680,18 @@ class IView(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def registerObserver(self, notificationName, observer):
+    def register_observer(self, notification_name, observer):
         """
         Register an IObserver to be notified of INotifications with a given name.
 
-        @param notificationName: the name of the INotifications to notify this IObserver of
+        @param notification_name: the name of the INotifications to notify this IObserver of
         @param observer: the IObserver to register
         """
         pass
 
+
     @abstractmethod
-    def notifyObservers(self, notification):
+    def notify_observers(self, notification):
         """
         Notify the IObservers for a particular INotification.
 
@@ -687,8 +703,20 @@ class IView(object):
         """
         pass
 
+
     @abstractmethod
-    def registerMediator(self, mediator):
+    def remove_observer(self, notification_name, notify_context):
+        """
+        Remove the observer for a given notify_context from an observer list for a given Notification name.
+
+        @param notification_name: which observer list to remove from
+        @param notify_context: remove the observer with this object as its notify_context
+        """
+        pass
+
+
+    @abstractmethod
+    def register_mediator(self, mediator):
         """
         Register an IMediator instance with the View.
 
@@ -698,7 +726,7 @@ class IView(object):
 
         If the IMediator returns any INotification
         names to be notified about, an Observer is created encapsulating
-        the IMediator instance's handleNotification method
+        the IMediator instance's handle_notification method
         and registering it as an Observer for all INotifications the
         IMediator is interested in.
 
@@ -707,31 +735,31 @@ class IView(object):
         pass
 
     @abstractmethod
-    def retrieveMediator(self, mediatorName):
+    def retrieve_mediator(self, mediator_name):
         """
         Retrieve an IMediator from the View.
 
-        @param mediatorName: the name of the IMediator instance to retrieve.
-        @return: the IMediator instance previously registered with the given mediatorName.
+        @param mediator_name: the name of the IMediator instance to retrieve.
+        @return: the IMediator instance previously registered with the given mediator_name.
         """
         pass
 
     @abstractmethod
-    def removeMediator(self, mediatorName):
+    def remove_mediator(self, mediator_name):
         """
         Remove an IMediator from the View.
 
-        @param mediatorName: name of the IMediator instance to be removed.
+        @param mediator_name: name of the IMediator instance to be removed.
         @return: the IMediator that was removed from the View
         """
         pass
 
     @abstractmethod
-    def hasMediator(self, mediatorName):
+    def has_mediator(self, mediator_name):
         """
         Check if a Mediator is registered or not
 
-        @param mediatorName: name of the IMediator
-        @return: whether a Mediator is registered with the given mediatorName.
+        @param mediator_name: name of the IMediator
+        @return: whether a Mediator is registered with the given mediator_name.
         """
         pass

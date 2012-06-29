@@ -6,13 +6,13 @@ class MediatorTest(unittest.TestCase):
     """MediatorTest: Test Mediator Pattern"""
 
     def testNameAccessor(self):
-        """MediatorTest: Test getMediatorName()"""
+        """MediatorTest: Test get_mediator_name()"""
         mdiatr = mediator.Mediator();
-        self.assertEqual(True, mdiatr.getMediatorName() == mediator.Mediator.NAME );
+        self.assertEqual(True, mdiatr.get_mediator_name() == mediator.Mediator.NAME );
 
     def testViewAccessor(self):
-        """MediatorTest: Test getViewComponent()"""
+        """MediatorTest: Test get_view_component()"""
 
         view = object()
         mdiatr = mediator.Mediator(mediator.Mediator.NAME, view);
-        self.assertEqual(True, mdiatr.getViewComponent() is not None)
+        self.assertEqual(True, mdiatr.get_view_component() is not None)

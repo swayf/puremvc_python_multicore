@@ -19,36 +19,36 @@ class FacadeTest(unittest.TestCase):
         self.assertEqual(True, isinstance(fcde, IFacade))
 
     def testRegisterCommandAndSendNotification(self):
-        """FacadeTest: Test registerCommand() and sendNotification()"""
+        """FacadeTest: Test register_command() and send_notification()"""
 
         fcde = Facade('test')
-        fcde.registerCommand('FacadeTestNote', utils.facade.FacadeTestCommand)
+        fcde.register_command('FacadeTestNote', utils.facade.FacadeTestCommand)
 
         vo = utils.facade.FacadeTestVO(32)
-        fcde.sendNotification('FacadeTestNote', vo)
+        fcde.send_notification('FacadeTestNote', vo)
 
         self.assertEqual(True, vo.result == 64)
 
     def testRegisterAndRemoveCommandAndSendNotification(self):
-        """FacadeTest: Test removeCommand() and subsequent sendNotification()"""
+        """FacadeTest: Test remove_command() and subsequent send_notification()"""
         fcde = Facade('test')
-        fcde.registerCommand('FacadeTestNote', utils.facade.FacadeTestCommand)
-        fcde.removeCommand('FacadeTestNote')
+        fcde.register_command('FacadeTestNote', utils.facade.FacadeTestCommand)
+        fcde.remove_command('FacadeTestNote')
 
         vo = utils.facade.FacadeTestVO(32)
-        fcde.sendNotification('FacadeTestNote', vo)
+        fcde.send_notification('FacadeTestNote', vo)
 
         self.assertEqual(True, vo.result != 64)
 
     def testRegisterAndRetrieveProxy(self):
-        """FacadeTest: Test registerProxy() and retrieveProxy()"""
+        """FacadeTest: Test register_proxy() and retrieve_proxy()"""
         fcde = Facade('test')
-        fcde.registerProxy(Proxy('colors', ['red', 'green', 'blue']))
-        pxy = fcde.retrieveProxy('colors')
+        fcde.register_proxy(Proxy('colors', ['red', 'green', 'blue']))
+        pxy = fcde.retrieve_proxy('colors')
 
         self.assertEqual(True, isinstance(pxy, IProxy))
 
-        data = pxy.getData()
+        data = pxy.get_data()
 
         self.assertEqual(True, data is not None)
         self.assertEqual(True, isinstance(data, list))
@@ -58,67 +58,67 @@ class FacadeTest(unittest.TestCase):
         self.assertEqual(True, data[2]  == 'blue')
 
     def testRegisterAndRemoveProxy(self):
-        """FacadeTest: Test registerProxy() and removeProxy()"""
+        """FacadeTest: Test register_proxy() and remove_proxy()"""
 
         fcde = Facade('test')
         pxy = Proxy('sizes', ['7', '13', '21'])
-        fcde.registerProxy(pxy)
+        fcde.register_proxy(pxy)
 
-        removedProxy = fcde.removeProxy('sizes')
+        removedProxy = fcde.remove_proxy('sizes')
 
-        self.assertEqual(True, removedProxy.getProxyName() == 'sizes')
+        self.assertEqual(True, removedProxy.get_proxy_name() == 'sizes')
 
-        pxy = fcde.retrieveProxy('sizes')
+        pxy = fcde.retrieve_proxy('sizes')
 
         self.assertEqual(True, pxy is None)
 
     def testRegisterRetrieveAndRemoveMediator(self):
-        """FacadeTest: Test registerMediator() retrieveMediator() and removeMediator()"""
+        """FacadeTest: Test register_mediator() retrieve_mediator() and remove_mediator()"""
 
         fcde = Facade('test')
-        fcde.registerMediator(Mediator(Mediator.NAME, object()))
+        fcde.register_mediator(Mediator(Mediator.NAME, object()))
 
-        self.assertEqual(True, fcde.retrieveMediator(Mediator.NAME) is not None)
+        self.assertEqual(True, fcde.retrieve_mediator(Mediator.NAME) is not None)
 
-        removedMediator = fcde.removeMediator(Mediator.NAME)
+        removedMediator = fcde.remove_mediator(Mediator.NAME)
 
-        self.assertEqual(True, removedMediator.getMediatorName() == Mediator.NAME)
+        self.assertEqual(True, removedMediator.get_mediator_name() == Mediator.NAME)
 
-        self.assertEqual(True, fcde.retrieveMediator(Mediator.NAME) is None)
+        self.assertEqual(True, fcde.retrieve_mediator(Mediator.NAME) is None)
 
     def testHasProxy(self):
-        """FacadeTest: Test hasProxy()"""
+        """FacadeTest: Test has_proxy()"""
 
         fcde = Facade('test')
-        fcde.registerProxy(Proxy('hasProxyTest', [1,2,3]))
+        fcde.register_proxy(Proxy('hasProxyTest', [1,2,3]))
 
-        self.assertEqual(True, fcde.hasProxy('hasProxyTest'))
+        self.assertEqual(True, fcde.has_proxy('hasProxyTest'))
 
-        fcde.removeProxy('hasProxyTest')
+        fcde.remove_proxy('hasProxyTest')
 
-        self.assertEqual(False, fcde.hasProxy('hasProxyTest'))
+        self.assertEqual(False, fcde.has_proxy('hasProxyTest'))
 
     def testHasMediator(self):
-        """FacadeTest: Test hasMediator()"""
+        """FacadeTest: Test has_mediator()"""
 
         fcde = Facade('test')
-        fcde.registerMediator(Mediator('facadeHasMediatorTest', object()))
+        fcde.register_mediator(Mediator('facadeHasMediatorTest', object()))
 
-        self.assertEqual(True, fcde.hasMediator('facadeHasMediatorTest'))
+        self.assertEqual(True, fcde.has_mediator('facadeHasMediatorTest'))
 
-        fcde.removeMediator('facadeHasMediatorTest')
+        fcde.remove_mediator('facadeHasMediatorTest')
 
-        self.assertEqual(False, fcde.hasMediator('facadeHasMediatorTest'))
+        self.assertEqual(False, fcde.has_mediator('facadeHasMediatorTest'))
 
     def testHasCommand(self):
-        """FacadeTest: Test hasCommand()"""
+        """FacadeTest: Test has_command()"""
         fcde = Facade('test')
-        fcde.registerCommand('facadeHasCommandTest', utils.facade.FacadeTestCommand)
+        fcde.register_command('facadeHasCommandTest', utils.facade.FacadeTestCommand)
 
-        self.assertEqual(True, fcde.hasCommand('facadeHasCommandTest'))
+        self.assertEqual(True, fcde.has_command('facadeHasCommandTest'))
 
-        fcde.removeCommand('facadeHasCommandTest')
+        fcde.remove_command('facadeHasCommandTest')
 
-        self.assertEqual(False, fcde.hasCommand('facadeHasCommandTest'))
+        self.assertEqual(False, fcde.has_command('facadeHasCommandTest'))
 
 

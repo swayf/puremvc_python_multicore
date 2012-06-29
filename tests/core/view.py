@@ -20,11 +20,11 @@ class ViewTest(unittest.TestCase):
     NOTE5 = "note5"
 
     def __cleanup(self):
-        View('test').removeMediator(utils.view.ViewTestMediator.NAME)
-        View('test').removeMediator(utils.view.ViewTestMediator2.NAME)
-        View('test').removeMediator(utils.view.ViewTestMediator3.NAME)
-        View('test').removeMediator(utils.view.ViewTestMediator4.NAME)
-        View('test').removeMediator(utils.view.ViewTestMediator5.NAME)
+        View('test').remove_mediator(utils.view.ViewTestMediator.NAME)
+        View('test').remove_mediator(utils.view.ViewTestMediator2.NAME)
+        View('test').remove_mediator(utils.view.ViewTestMediator3.NAME)
+        View('test').remove_mediator(utils.view.ViewTestMediator4.NAME)
+        View('test').remove_mediator(utils.view.ViewTestMediator5.NAME)
 
     def assertNotNone(self):
         """ViewTest: Test instance not null"""
@@ -37,122 +37,122 @@ class ViewTest(unittest.TestCase):
         self.assertEqual(True, isinstance(view, IView))
 
     def testRegisterAndNotifyObserver(self):
-        """ViewTest: Test registerObserver() and notifyObservers()"""
+        """ViewTest: Test register_observer() and notify_observers()"""
 
         self.viewTestVar = 0
         def viewTestMethod(note):
-            self.viewTestVar = note.getBody()
+            self.viewTestVar = note.get_body()
 
         view = View('test')
         obsvr = Observer(viewTestMethod, self)
-        view.registerObserver(utils.view.ViewTestNote.NAME, obsvr)
+        view.register_observer(utils.view.ViewTestNote.NAME, obsvr)
 
         note = utils.view.ViewTestNote.create(10)
-        view.notifyObservers(note)
+        view.notify_observers(note)
 
         self.assertEqual(True, self.viewTestVar == 10)
 
     def testRegisterAndRetrieveMediator(self):
-        """ViewTest: Test registerMediator() and retrieveMediator()"""
+        """ViewTest: Test register_mediator() and retrieve_mediator()"""
         view = View('test')
 
         viewTestMediator = utils.view.ViewTestMediator(self)
-        view.registerMediator(viewTestMediator)
+        view.register_mediator(viewTestMediator)
 
-        mediator = view.retrieveMediator(utils.view.ViewTestMediator.NAME)
+        mediator = view.retrieve_mediator(utils.view.ViewTestMediator.NAME)
 
         self.assertEqual(True, isinstance(mediator, utils.view.ViewTestMediator))
         self.__cleanup()
 
     def testHasMediator(self):
-        """ViewTest: Test hasMediator()"""
+        """ViewTest: Test has_mediator()"""
         view = View('test')
         meditr = Mediator('hasMediatorTest', self)
-        view.registerMediator(meditr)
+        view.register_mediator(meditr)
 
-        self.assertEqual(True, view.hasMediator('hasMediatorTest'))
+        self.assertEqual(True, view.has_mediator('hasMediatorTest'))
 
-        view.removeMediator('hasMediatorTest')
+        view.remove_mediator('hasMediatorTest')
 
-        self.assertEqual(False, view.hasMediator('hasMediatorTest'))
+        self.assertEqual(False, view.has_mediator('hasMediatorTest'))
         self.__cleanup()
 
     def testRegisterAndRemoveMediator(self):
-        """ViewTest: Test registerMediator() and removeMediator()"""
+        """ViewTest: Test register_mediator() and remove_mediator()"""
         view = View('test')
 
         meditr = Mediator('testing', self)
-        view.registerMediator(meditr)
+        view.register_mediator(meditr)
 
-        removedMediator = view.removeMediator('testing')
+        removedMediator = view.remove_mediator('testing')
 
-        self.assertEqual(True, removedMediator.getMediatorName() == 'testing')
+        self.assertEqual(True, removedMediator.get_mediator_name() == 'testing')
 
-        self.assertEqual(True, view.retrieveMediator('testing') is None)
+        self.assertEqual(True, view.retrieve_mediator('testing') is None)
         self.__cleanup()
 
     def testOnRegisterAndOnRemove(self):
-        """ViewTest: Test onRegsiter() and onRemove()"""
+        """ViewTest: Test onRegsiter() and on_remove()"""
         view = View('test')
 
         mediator = utils.view.ViewTestMediator4(self)
-        view.registerMediator(mediator)
+        view.register_mediator(mediator)
 
         self.assertEqual(True, self.onRegisterCalled)
 
-        view.removeMediator(utils.view.ViewTestMediator4.NAME)
+        view.remove_mediator(utils.view.ViewTestMediator4.NAME)
 
         self.assertEqual(True, self.onRemoveCalled)
         self.__cleanup()
 
 
     def testSuccessiveRegisterAndRemoveMediator(self):
-        """ViewTest: Test Successive registerMediator() and removeMediator()"""
+        """ViewTest: Test Successive register_mediator() and remove_mediator()"""
         view = View('test')
 
-        view.registerMediator(utils.view.ViewTestMediator(self))
+        view.register_mediator(utils.view.ViewTestMediator(self))
 
-        self.assertEqual(True, isinstance(view.retrieveMediator(utils.view.ViewTestMediator.NAME), utils.view.ViewTestMediator))
+        self.assertEqual(True, isinstance(view.retrieve_mediator(utils.view.ViewTestMediator.NAME), utils.view.ViewTestMediator))
 
-        view.removeMediator(utils.view.ViewTestMediator.NAME)
+        view.remove_mediator(utils.view.ViewTestMediator.NAME)
 
-        self.assertEqual(True, view.retrieveMediator(utils.view.ViewTestMediator.NAME) is None)
+        self.assertEqual(True, view.retrieve_mediator(utils.view.ViewTestMediator.NAME) is None)
 
-        self.assertEqual(True, view.removeMediator(utils.view.ViewTestMediator.NAME) is None)
+        self.assertEqual(True, view.remove_mediator(utils.view.ViewTestMediator.NAME) is None)
 
-        view.registerMediator(utils.view.ViewTestMediator(self))
+        view.register_mediator(utils.view.ViewTestMediator(self))
 
-        self.assertEqual(True, isinstance(view.retrieveMediator(utils.view.ViewTestMediator.NAME), utils.view.ViewTestMediator))
+        self.assertEqual(True, isinstance(view.retrieve_mediator(utils.view.ViewTestMediator.NAME), utils.view.ViewTestMediator))
 
-        view.removeMediator(utils.view.ViewTestMediator.NAME)
+        view.remove_mediator(utils.view.ViewTestMediator.NAME)
 
-        self.assertEqual(True, view.retrieveMediator(utils.view.ViewTestMediator.NAME) is None)
+        self.assertEqual(True, view.retrieve_mediator(utils.view.ViewTestMediator.NAME) is None)
 
         self.__cleanup()
 
     def testRemoveMediatorAndSubsequentNotify(self):
-        """ViewTest: Test removeMediator() and subsequent nofity()"""
+        """ViewTest: Test remove_mediator() and subsequent nofity()"""
 
         view = View('test')
 
-        view.registerMediator(utils.view.ViewTestMediator2(self))
+        view.register_mediator(utils.view.ViewTestMediator2(self))
 
-        view.notifyObservers(Notification(self.NOTE1))
+        view.notify_observers(Notification(self.NOTE1))
         self.assertEqual(True, self.lastNotification == self.NOTE1)
 
-        view.notifyObservers(Notification(self.NOTE2))
+        view.notify_observers(Notification(self.NOTE2))
         self.assertEqual(True, self.lastNotification == self.NOTE2)
 
-        view.removeMediator(utils.view.ViewTestMediator2.NAME)
+        view.remove_mediator(utils.view.ViewTestMediator2.NAME)
 
-        self.assertEqual(True, view.retrieveMediator(utils.view.ViewTestMediator2.NAME) is None)
+        self.assertEqual(True, view.retrieve_mediator(utils.view.ViewTestMediator2.NAME) is None)
 
         self.lastNotification = None
 
-        view.notifyObservers(Notification(self.NOTE1))
+        view.notify_observers(Notification(self.NOTE1))
         self.assertEqual(True, self.lastNotification != self.NOTE1)
 
-        view.notifyObservers(Notification(self.NOTE2))
+        view.notify_observers(Notification(self.NOTE2))
         self.assertEqual(True, self.lastNotification != self.NOTE2)
 
         self.__cleanup()
@@ -162,32 +162,32 @@ class ViewTest(unittest.TestCase):
 
         view = View('test')
 
-        view.registerMediator(utils.view.ViewTestMediator2(self))
+        view.register_mediator(utils.view.ViewTestMediator2(self))
 
-        view.registerMediator(utils.view.ViewTestMediator3(self))
+        view.register_mediator(utils.view.ViewTestMediator3(self))
 
-        view.notifyObservers(Notification(self.NOTE1))
+        view.notify_observers(Notification(self.NOTE1))
         self.assertEqual(True, self.lastNotification == self.NOTE1)
 
-        view.notifyObservers(Notification(self.NOTE2))
+        view.notify_observers(Notification(self.NOTE2))
         self.assertEqual(True, self.lastNotification == self.NOTE2)
 
-        view.notifyObservers(Notification(self.NOTE3))
+        view.notify_observers(Notification(self.NOTE3))
         self.assertEqual(True, self.lastNotification == self.NOTE3)
 
-        view.removeMediator(utils.view.ViewTestMediator2.NAME)
+        view.remove_mediator(utils.view.ViewTestMediator2.NAME)
 
-        self.assertEqual(True, view.retrieveMediator(utils.view.ViewTestMediator2.NAME) is None)
+        self.assertEqual(True, view.retrieve_mediator(utils.view.ViewTestMediator2.NAME) is None)
 
         self.lastNotification = None
 
-        view.notifyObservers(Notification(self.NOTE1))
+        view.notify_observers(Notification(self.NOTE1))
         self.assertEqual(True, self.lastNotification != self.NOTE1)
 
-        view.notifyObservers(Notification(self.NOTE2))
+        view.notify_observers(Notification(self.NOTE2))
         self.assertEqual(True, self.lastNotification != self.NOTE2)
 
-        view.notifyObservers(Notification(self.NOTE3))
+        view.notify_observers(Notification(self.NOTE3))
         self.assertEqual(True, self.lastNotification == self.NOTE3)
 
         self.__cleanup()
@@ -206,28 +206,28 @@ class ViewTest(unittest.TestCase):
 
         view = View('test')
 
-        view.registerMediator(utils.view.ViewTestMediator5(self))
+        view.register_mediator(utils.view.ViewTestMediator5(self))
 
         # try to register another instance of that mediator (uses the same NAME constant).
-        view.registerMediator(utils.view.ViewTestMediator5(self))
+        view.register_mediator(utils.view.ViewTestMediator5(self))
 
         self.counter = 0
-        view.notifyObservers(Notification(self.NOTE5))
+        view.notify_observers(Notification(self.NOTE5))
         self.assertEqual(1, self.counter)
 
-        view.removeMediator(utils.view.ViewTestMediator5.NAME)
+        view.remove_mediator(utils.view.ViewTestMediator5.NAME)
 
-        self.assertEqual(True, view.retrieveMediator(utils.view.ViewTestMediator5.NAME ) is None)
+        self.assertEqual(True, view.retrieve_mediator(utils.view.ViewTestMediator5.NAME ) is None)
 
         self.counter=0
-        view.notifyObservers(Notification(self.NOTE5))
+        view.notify_observers(Notification(self.NOTE5))
         self.assertEqual(0,  self.counter)
 
     def testRemoveSelf(self):
         view = View('test')
-        view.registerMediator(utils.view.ViewTestMediator2(self))
-        view.registerMediator(utils.view.ViewTestMediator3(self))
+        view.register_mediator(utils.view.ViewTestMediator2(self))
+        view.register_mediator(utils.view.ViewTestMediator3(self))
 
         self.assertTrue(self.NOTE5 in view.observer_map)
-        view.notifyObservers(Notification(self.NOTE5))
+        view.notify_observers(Notification(self.NOTE5))
         self.assertFalse(self.NOTE5 in view.observer_map)
