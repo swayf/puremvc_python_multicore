@@ -4,8 +4,8 @@
  Your reuse is governed by the Creative Commons Attribution 3.0 License
 """
 from abc import ABCMeta
-from puremvc.interfaces import IController, IModel, IView
-from puremvc.patterns.observer import Observer
+from puremvc_multicore.interfaces import IController, IModel, IView
+from puremvc_multicore.patterns.observer import Observer
 
 
 
@@ -50,11 +50,11 @@ class Controller(IController):
     and use its C{initializeController} method to add your
     registrations.
 
-    @see: L{View<puremvc.core.view.View>}
-    @see: L{Observer<puremvc.patterns.observer.Observer>}
-    @see: L{Notification<puremvc.patterns.observer.Notification>}
-    @see: L{SimpleCommand<puremvc.patterns.command.SimpleCommand>}
-    @see: L{MacroCommand<puremvc.patterns.command.MacroCommand>}
+    @see: L{View<puremvc_multicore.core.view.View>}
+    @see: L{Observer<puremvc_multicore.patterns.observer.Observer>}
+    @see: L{Notification<puremvc_multicore.patterns.observer.Notification>}
+    @see: L{SimpleCommand<puremvc_multicore.patterns.command.SimpleCommand>}
+    @see: L{MacroCommand<puremvc_multicore.patterns.command.MacroCommand>}
     """
 
     __metaclass__ = ControllerMeta
@@ -163,8 +163,8 @@ class Model(IModel):
     instances once the C{Facade} has initialized the Core
     actors.
 
-    @see: L{Proxy<puremvc.patterns.proxy.Proxy>}
-    @see: L{IProxy<puremvc.interfaces.IProxy>}
+    @see: L{Proxy<puremvc_multicore.patterns.proxy.Proxy>}
+    @see: L{IProxy<puremvc_multicore.interfaces.IProxy>}
     """
     __metaclass__ = ModelMeta
 
@@ -260,9 +260,9 @@ class View(IView):
     Notifying the C{IObservers} of a given C{INotification} when it broadcast.
 
 
-    @see: L{Mediator<puremvc.patterns.mediator.Mediator>}
-    @see: L{Observer<puremvc.patterns.observer.Observer>}
-    @see: L{Notification<puremvc.patterns.observer.Notification>}
+    @see: L{Mediator<puremvc_multicore.patterns.mediator.Mediator>}
+    @see: L{Observer<puremvc_multicore.patterns.observer.Observer>}
+    @see: L{Notification<puremvc_multicore.patterns.observer.Notification>}
     """
     __metaclass__ = ViewMeta
 

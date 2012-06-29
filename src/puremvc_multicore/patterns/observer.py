@@ -4,7 +4,7 @@
  Your reuse is governed by the Creative Commons Attribution 3.0 License
 """
 
-from puremvc.interfaces import IObserver, INotification
+from puremvc_multicore.interfaces import IObserver, INotification
 
 class Observer(IObserver):
     """
@@ -24,8 +24,8 @@ class Observer(IObserver):
 
     Provide a method for notifying the interested object.
 
-    @see: L{View<org.puremvc.as3.core.view.View>}
-    @see: L{Notification<org.puremvc.as3.patterns.observer.Notification>}
+    @see: L{View<org.puremvc_multicore.as3.core.view.View>}
+    @see: L{Notification<org.puremvc_multicore.as3.patterns.observer.Notification>}
     """
     notify = None
     context = None
@@ -125,7 +125,7 @@ class Notification(INotification):
     parent/child relationship in order to communicate with one another
     using C{Notification}s.
 
-    @see: L{Observer<org.puremvc.as3.patterns.observer.Observer>}
+    @see: L{Observer<org.puremvc_multicore.as3.patterns.observer.Observer>}
     """
 
     name = None

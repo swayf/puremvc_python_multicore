@@ -1,7 +1,7 @@
 import unittest
-from puremvc.core import Controller
-from puremvc.interfaces import IController
-from puremvc.patterns.observer import Notification
+from puremvc_multicore.core import Controller
+from puremvc_multicore.interfaces import IController
+from puremvc_multicore.patterns.observer import Notification
 import utils.controller
 
 

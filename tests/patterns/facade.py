@@ -1,9 +1,9 @@
 import unittest
 import utils.facade
-from puremvc.interfaces import IFacade, IProxy
-from puremvc.patterns.facade import Facade
-from puremvc.patterns.mediator import Mediator
-from puremvc.patterns.proxy import Proxy
+from puremvc_multicore.interfaces import IFacade, IProxy
+from puremvc_multicore.patterns.facade import Facade
+from puremvc_multicore.patterns.mediator import Mediator
+from puremvc_multicore.patterns.proxy import Proxy
 
 class FacadeTest(unittest.TestCase):
     """FacadeTest: Test Facade Pattern"""

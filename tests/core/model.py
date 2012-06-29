@@ -1,8 +1,8 @@
 import unittest
 import utils.model
-from puremvc.core import Model
-from puremvc.interfaces import IModel
-from puremvc.patterns.proxy import Proxy
+from puremvc_multicore.core import Model
+from puremvc_multicore.interfaces import IModel
+from puremvc_multicore.patterns.proxy import Proxy
 
 class ModelTest(unittest.TestCase):
     """ModelTest: Test Model Singleton"""

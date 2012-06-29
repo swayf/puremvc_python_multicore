@@ -4,9 +4,9 @@
  Your reuse is governed by the Creative Commons Attribution 3.0 License
 """
 from abc import ABCMeta
-from puremvc.core import Controller, View, Model
-from puremvc.interfaces import IFacade
-from puremvc.patterns.observer import Notification
+from puremvc_multicore.core import Controller, View, Model
+from puremvc_multicore.interfaces import IFacade
+from puremvc_multicore.patterns.observer import Notification
 
 
 class FacadeMeta(ABCMeta):
@@ -40,14 +40,14 @@ class Facade(IFacade):
     Providing a single point of contact to the application for registering C{Commands} and notifying C{Observers}
 
 
-    @see: L{Model<org.puremvc.as3.core.model.Model>}
-    @see: L{View<org.puremvc.as3.core.view.View>}
-    @see: L{Controller<org.puremvc.as3.core.controller.Controller>}
-    @see: L{Notification<org.puremvc.as3.patterns.observer.Notification>}
-    @see: L{Mediator<org.puremvc.as3.patterns.mediator.Mediator>}
-    @see: L{Proxy<org.puremvc.as3.patterns.proxy.Proxy>}
-    @see: L{SimpleCommand<org.puremvc.as3.patterns.command.SimpleCommand>}
-    @see: L{MacroCommand<org.puremvc.as3.patterns.command.MacroCommand>}
+    @see: L{Model<org.puremvc_multicore.as3.core.model.Model>}
+    @see: L{View<org.puremvc_multicore.as3.core.view.View>}
+    @see: L{Controller<org.puremvc_multicore.as3.core.controller.Controller>}
+    @see: L{Notification<org.puremvc_multicore.as3.patterns.observer.Notification>}
+    @see: L{Mediator<org.puremvc_multicore.as3.patterns.mediator.Mediator>}
+    @see: L{Proxy<org.puremvc_multicore.as3.patterns.proxy.Proxy>}
+    @see: L{SimpleCommand<org.puremvc_multicore.as3.patterns.command.SimpleCommand>}
+    @see: L{MacroCommand<org.puremvc_multicore.as3.patterns.command.MacroCommand>}
     """
 
     __metaclass__ = FacadeMeta

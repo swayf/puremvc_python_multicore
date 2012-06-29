@@ -3,8 +3,8 @@
  PureMVC - Copyright(c) 2006-08 Futurescale, Inc., Some rights reserved.
  Your reuse is governed by the Creative Commons Attribution 3.0 License
 """
-from puremvc.interfaces import IProxy, INotifier
-from puremvc.patterns.notifier import Notifier
+from puremvc_multicore.interfaces import IProxy, INotifier
+from puremvc_multicore.patterns.notifier import Notifier
 
 
 class Proxy(Notifier, IProxy, INotifier):
@@ -24,7 +24,7 @@ class Proxy(Notifier, IProxy, INotifier):
     C{Proxy} and listening for a C{Notification} to be sent
     when the C{Proxy} has retrieved the data from the service.
 
-    @see: L{Model<org.puremvc.as3.core.model.Model>}
+    @see: L{Model<org.puremvc_multicore.as3.core.model.Model>}
     """
 
     NAME = None

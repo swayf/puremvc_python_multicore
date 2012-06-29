@@ -114,8 +114,8 @@ class INotifier(object):
     classes have frequent Facade interactions and usually require
     access to the facade anyway.
 
-    @see: IFacade<puremvc.interfaces.IFacade>
-    @see: INotification<puremvc.interfaces.INotification>
+    @see: IFacade<puremvc_multicore.interfaces.IFacade>
+    @see: INotification<puremvc_multicore.interfaces.INotification>
     """
     __metaclass__ = ABCMeta
 
@@ -302,7 +302,7 @@ class IMediator(object):
     and register it as an Observer for each INotification name returned by
     listNotificationInterests.
 
-    @see: INotification<puremvc.interfaces.INotification>
+    @see: INotification<puremvc_multicore.interfaces.INotification>
     """
     __metaclass__ = ABCMeta
 
@@ -448,8 +448,8 @@ class INotification(object):
     parent/child relationship in order to communicate with one another
     using Notifications.
 
-    @see: IView<puremvc.interfaces.IView>
-    @see: IObserver<puremvc.interfaces.IObserver>
+    @see: IView<puremvc_multicore.interfaces.IView>
+    @see: IObserver<puremvc_multicore.interfaces.IObserver>
     """
     __metaclass__ = ABCMeta
 
@@ -531,8 +531,8 @@ class IObserver(object):
     in an object implementing the INotification interface, such
     as a subclass of Notification.
 
-    @see: IView<puremvc.interfaces.IView>
-    @see: INotification<puremvc.interfaces.INotification>
+    @see: IView<puremvc_multicore.interfaces.IView>
+    @see: INotification<puremvc_multicore.interfaces.INotification>
     """
     __metaclass__ = ABCMeta
 
@@ -658,9 +658,9 @@ class IView(object):
 
     Notifying the IObservers of a given INotification when it broadcast.
 
-    @see: IMediator<puremvc.interfaces.IMediator>
-    @see: IObserver<puremvc.interfaces.IObserver>
-    @see: INotification<puremvc.interfaces.INotification>
+    @see: IMediator<puremvc_multicore.interfaces.IMediator>
+    @see: IObserver<puremvc_multicore.interfaces.IObserver>
+    @see: INotification<puremvc_multicore.interfaces.INotification>
     """
     __metaclass__ = ABCMeta
 

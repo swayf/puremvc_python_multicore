@@ -3,15 +3,15 @@
  PureMVC - Copyright(c) 2006-08 Futurescale, Inc., Some rights reserved.
  Your reuse is governed by the Creative Commons Attribution 3.0 License
 """
-from puremvc.interfaces import IMediator, INotifier
-from puremvc.patterns.notifier import Notifier
+from puremvc_multicore.interfaces import IMediator, INotifier
+from puremvc_multicore.patterns.notifier import Notifier
 
 
 class Mediator(Notifier, IMediator, INotifier):
     """
     A base C{IMediator} implementation.
 
-    @see: L{View<org.puremvc.as3.core.view.View>}
+    @see: L{View<org.puremvc_multicore.as3.core.view.View>}
     """
 
     NAME = None

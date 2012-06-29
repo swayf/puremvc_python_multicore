@@ -4,8 +4,8 @@
  Your reuse is governed by the Creative Commons Attribution 3.0 License
 """
 
-from puremvc.interfaces import ICommand, INotifier
-from puremvc.patterns.notifier import Notifier
+from puremvc_multicore.interfaces import ICommand, INotifier
+from puremvc_multicore.patterns.notifier import Notifier
 
 
 class MacroCommand(Notifier, ICommand, INotifier):
@@ -26,9 +26,9 @@ class MacroCommand(Notifier, ICommand, INotifier):
     calling C{addSubCommand} once for each I{SubCommand}
     to be executed.
 
-    @see: L{Controller<puremvc.core.controller.Controller>}
-    @see: L{Notification<puremvc.patterns.observer.Notification>}
-    @see: L{SimpleCommand<puremvc.patterns.command.SimpleCommand>}
+    @see: L{Controller<puremvc_multicore.core.controller.Controller>}
+    @see: L{Notification<puremvc_multicore.patterns.observer.Notification>}
+    @see: L{SimpleCommand<puremvc_multicore.patterns.command.SimpleCommand>}
     """
 
     subCommands = None
@@ -92,9 +92,9 @@ class SimpleCommand(Notifier, ICommand, INotifier):
     Your subclass should override the C{execute}
     method where your business logic will handle the C{INotification}.
 
-    @see: L{Controller<puremvc.core.controller.Controller>}
-    @see: L{Notification<puremvc.patterns.observer.Notification>}
-    @see: L{MacroCommand<puremvc.patterns.command.MacroCommand>}
+    @see: L{Controller<puremvc_multicore.core.controller.Controller>}
+    @see: L{Notification<puremvc_multicore.patterns.observer.Notification>}
+    @see: L{MacroCommand<puremvc_multicore.patterns.command.MacroCommand>}
     """
 
     def execute(self, notification):

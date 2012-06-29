@@ -1,15 +1,15 @@
-import puremvc.patterns.proxy
+from puremvc_multicore.patterns.proxy import Proxy
 
-class ModelTestProxy(puremvc.patterns.proxy.Proxy):
+class ModelTestProxy(Proxy):
     NAME = 'ModelTestProxy'
     ON_REGISTER_CALLED = 'onRegister Called'
     ON_REMOVE_CALLED = 'onRemove Called'
 
     def __init__(self):
-        puremvc.patterns.proxy.Proxy.__init__(self, ModelTestProxy.NAME, object())
+        Proxy.__init__(self, ModelTestProxy.NAME, object())
 
     def onRegister(self):
-        self.setData(ModelTestProxy.ON_REGISTER_CALLED)        
+        self.setData(ModelTestProxy.ON_REGISTER_CALLED)
 
     def onRemove(self):
-        self.setData(ModelTestProxy.ON_REMOVE_CALLED) 
+        self.setData(ModelTestProxy.ON_REMOVE_CALLED)

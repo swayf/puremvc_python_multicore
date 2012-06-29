@@ -4,8 +4,8 @@
  Your reuse is governed by the Creative Commons Attribution 3.0 License
 """
 
-from puremvc.interfaces import INotifier
-from puremvc.patterns.facade import Facade
+from puremvc_multicore.interfaces import INotifier
+from puremvc_multicore.patterns.facade import Facade
 
 
 class Notifier(INotifier):
@@ -26,11 +26,11 @@ class Notifier(INotifier):
     classes have frequent C{Facade} interactions and usually require
     access to the facade anyway.
 
-    @see: L{Facade<org.puremvc.as3.patterns.facade.Facade>}
-    @see: L{Mediator<org.puremvc.as3.patterns.mediator.Mediator>}
-    @see: L{Proxy<org.puremvc.as3.patterns.proxy.Proxy>}
-    @see: L{SimpleCommand<org.puremvc.as3.patterns.command.SimpleCommand>}
-    @see: L{MacroCommand<org.puremvc.as3.patterns.command.MacroCommand>}
+    @see: L{Facade<org.puremvc_multicore.as3.patterns.facade.Facade>}
+    @see: L{Mediator<org.puremvc_multicore.as3.patterns.mediator.Mediator>}
+    @see: L{Proxy<org.puremvc_multicore.as3.patterns.proxy.Proxy>}
+    @see: L{SimpleCommand<org.puremvc_multicore.as3.patterns.command.SimpleCommand>}
+    @see: L{MacroCommand<org.puremvc_multicore.as3.patterns.command.MacroCommand>}
     """
     multiton_key = None
 

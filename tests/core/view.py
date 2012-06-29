@@ -1,9 +1,9 @@
 import unittest
 import utils.view
-from puremvc.core import View
-from puremvc.interfaces import IView
-from puremvc.patterns.mediator import Mediator
-from puremvc.patterns.observer import Observer, Notification
+from puremvc_multicore.core import View
+from puremvc_multicore.interfaces import IView
+from puremvc_multicore.patterns.mediator import Mediator
+from puremvc_multicore.patterns.observer import Observer, Notification
 
 
 class ViewTest(unittest.TestCase):

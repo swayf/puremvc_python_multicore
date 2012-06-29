@@ -1,5 +1,5 @@
 from nose.tools import *
-from puremvc.patterns.facade import Facade
+from puremvc_multicore.patterns.facade import Facade
 
 
 class CustomFacade(Facade):

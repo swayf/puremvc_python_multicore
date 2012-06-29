@@ -1,4 +1,4 @@
-from puremvc.patterns.command import SimpleCommand
+from puremvc_multicore.patterns.command import SimpleCommand
 
 class ControllerTestCommand(SimpleCommand):
 

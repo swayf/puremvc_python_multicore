@@ -1,11 +1,11 @@
 from distutils.core import setup
 
-setup(name='PureMVC Adapted',
+setup(name='PureMVC Multicore',
       version='1.0',
       description='PureMVC Python Framework',
-      author='Toby de Havilland',
-      author_email='toby.de.havilland@puremvc.org',
-      url='http://www.puremvc.org',
+      author='Oleg Butovich',
+      author_email='obutovich@gmail.com',
+      url='https://github.com/swayf/puremvc_python',
 	  package_dir={'': 'src'},
-      packages=['puremvc', 'puremvc.patterns'],
+      packages=['puremvc_multicore', 'puremvc_multicore.patterns'],
 )
