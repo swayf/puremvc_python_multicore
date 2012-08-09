@@ -83,6 +83,7 @@ class MacroCommand(Notifier, ICommand, INotifier):
         while len(self.sub_commands) > 0:
             command_class_ref = self.sub_commands.pop(0)
             command_instance = command_class_ref()
+            command_instance.initialize_notifier(self.multiton_key)
             command_instance.execute(notification)
 
 
