@@ -27,7 +27,6 @@ class Proxy(Notifier, IProxy, INotifier):
 
     @see: L{Model<org.puremvc_multicore.as3.core.model.Model>}
     """
-
     NAME = None
     facade = None
     proxy_name = None
@@ -40,8 +39,7 @@ class Proxy(Notifier, IProxy, INotifier):
         @param proxy_name: the name of the proxy instance (optional)
         @param data: the proxy data (optional)
         """
-        self.__class__.NAME = self.__class__.NAME or self.__class__.__name__
-        proxy_name = proxy_name or self.NAME
+        proxy_name = proxy_name or getattr(self, 'NAME') or self.__class__.__name__
         if proxy_name is None:
             raise ValueError("Proxy name cannot be None")
         self.proxy_name = proxy_name

@@ -74,6 +74,7 @@ class Controller(IController):
         """
         self.view = View(key)
         self.command_map = {}
+        self.multiton_key = key
 
 
     def execute_command(self, note):
@@ -86,6 +87,7 @@ class Controller(IController):
         command_class_ref = self.command_map.get(note.get_name(),None)
         if command_class_ref is not None:
             command_instance = command_class_ref()
+            command_instance.initialize_notifier(self.multiton_key)
             command_instance.execute(note)
 
 

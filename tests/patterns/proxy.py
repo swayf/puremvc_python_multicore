@@ -1,37 +1,43 @@
-import unittest
 from puremvc_multicore.patterns.proxy import Proxy
+from nose.tools import eq_, ok_
+
+def testNameAccessor():
+    """ProxyTest: Test Name Accessor"""
+
+    prxy = Proxy('TestProxy')
+    eq_(prxy.get_proxy_name(), 'TestProxy')
+
+    class SuperTestProxy(Proxy):
+        pass
+
+    prxy = SuperTestProxy()
+    eq_(prxy.get_proxy_name(), 'SuperTestProxy')
 
 
-class ProxyTest(unittest.TestCase):
-    """ProxyTest: Test Proxy Pattern"""
+def testDataAccessors():
+    """ProxyTest: Test Data Accessors"""
 
-    def testNameAccessor(self):
-        """ProxyTest: Test Name Accessor"""
+    prxy = Proxy('colors')
+    prxy.set_data(['red', 'green', 'blue'])
+    data = prxy.get_data()
 
-        prxy = Proxy('TestProxy')
-        self.assertEqual(True, prxy.get_proxy_name() == 'TestProxy')
+    eq_(len(data), 3)
+    eq_(data[0], 'red')
+    eq_(data[1], 'green')
+    eq_(data[2], 'blue')
 
-    def testDataAccessors(self):
-        """ProxyTest: Test Data Accessors"""
 
-        prxy = Proxy('colors')
-        prxy.set_data(['red', 'green', 'blue'])
-        data = prxy.get_data()
+def testConstructor():
+    """ProxyTest: Test Constructor"""
 
-        self.assertEqual(True, len(data) == 3)
-        self.assertEqual(True, data[0]  == 'red')
-        self.assertEqual(True, data[1]  == 'green')
-        self.assertEqual(True, data[2]  == 'blue')
+    prxy = Proxy('colors',['red', 'green', 'blue'])
+    data = prxy.get_data()
 
-    def testConstructor(self):
-        """ProxyTest: Test Constructor"""
+    ok_(prxy is not None)
+    eq_(prxy.get_proxy_name(), 'colors')
+    eq_(len(data), 3)
+    eq_(data[0], 'red')
+    eq_(data[1], 'green')
+    eq_(data[2], 'blue')
 
-        prxy = Proxy('colors',['red', 'green', 'blue'])
-        data = prxy.get_data()
 
-        self.assertEqual(True, prxy is not None)
-        self.assertEqual(True, prxy.get_proxy_name() == 'colors')
-        self.assertEqual(True, len(data) == 3)
-        self.assertEqual(True, data[0]  == 'red')
-        self.assertEqual(True, data[1]  == 'green')
-        self.assertEqual(True, data[2]  == 'blue')

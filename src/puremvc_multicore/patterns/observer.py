@@ -31,7 +31,7 @@ class Observer(IObserver):
     notify = None
     context = None
 
-    def __init__(self, notify_method, notify_context):
+    def __init__(self, notify_method, notify_context = None):
         """
         Constructor.
 

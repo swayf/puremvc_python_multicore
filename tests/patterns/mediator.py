@@ -1,18 +1,13 @@
-import unittest
+from nose.tools import ok_, eq_
+from puremvc_multicore.patterns.mediator import Mediator
 
-import puremvc_multicore.patterns.mediator as mediator
+def testNameAccessor():
+    """MediatorTest: Test get_mediator_name()"""
+    mediator = Mediator()
+    eq_(mediator.get_mediator_name(), 'Mediator' )
 
-class MediatorTest(unittest.TestCase):
-    """MediatorTest: Test Mediator Pattern"""
 
-    def testNameAccessor(self):
-        """MediatorTest: Test get_mediator_name()"""
-        mdiatr = mediator.Mediator();
-        self.assertEqual(True, mdiatr.get_mediator_name() == mediator.Mediator.NAME );
-
-    def testViewAccessor(self):
-        """MediatorTest: Test get_view_component()"""
-
-        view = object()
-        mdiatr = mediator.Mediator(mediator.Mediator.NAME, view);
-        self.assertEqual(True, mdiatr.get_view_component() is not None)
+def testViewAccessor():
+    """MediatorTest: Test get_view_component()"""
+    mediator = Mediator(view_component=object)
+    ok_(mediator.get_view_component() is not None)

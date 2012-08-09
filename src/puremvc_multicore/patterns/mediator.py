@@ -27,8 +27,7 @@ class Mediator(Notifier, IMediator, INotifier):
         one specific control or group controls and so,
         will not have a need to be dynamically named.
         """
-        self.__class__.NAME = self.__class__.NAME or self.__class__.__name__
-        mediator_name = mediator_name or self.NAME
+        mediator_name = mediator_name or getattr(self, 'NAME') or self.__class__.__name__
         if mediator_name is None:
             raise ValueError("Mediator name cannot be None")
         self.mediator_name = mediator_name

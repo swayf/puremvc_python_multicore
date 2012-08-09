@@ -1,67 +1,64 @@
-import unittest
+from nose.tools import eq_, ok_
 from puremvc_multicore.patterns.observer import Observer, Notification
 
-class ObserverTest(unittest.TestCase):
-    """ObserverTest: Test Observer Pattern"""
 
-    __observerTestVar = None
+class ObserverTester(object):
+    observerTestVar = None
+    def observerTestMethod(self, note):
+       self.observerTestVar = note.get_body()
 
-    def __observerTestMethod(self,note):
-        self.__observerTestVar = note.get_body()
 
-    def testObserverAccessors(self):
-        """ObserverTest: Test Observer Accessors"""
+def testObserverAccessors():
+    """ObserverTest: Test Observer Accessors"""
+    observer = Observer(None,None)
+    tester = ObserverTester()
+    observer.set_notify_method(tester.observerTestMethod)
+    observer.set_notify_context(tester)
 
-        obsrvr = Observer(None,None)
-        obsrvr.set_notify_context(self)
+    note = Notification('ObserverTestNote',10)
+    observer.notify_observer(note)
 
-        obsrvr.set_notify_method(self.__observerTestMethod)
+    eq_(tester.observerTestVar, 10)
 
-        note = Notification('ObserverTestNote',10)
-        obsrvr.notify_observer(note)
 
-        self.assertEqual(True, self.__observerTestVar == 10)
+def testObserverConstructor():
+    """ObserverTest: Test Observer Constructor"""
+    tester = ObserverTester()
+    observer = Observer(tester.observerTestMethod, tester)
 
-    def testObserverConstructor(self):
-        """ObserverTest: Test Observer Constructor"""
+    note = Notification('ObserverTestNote',5)
+    observer.notify_observer(note)
 
-        obsrvr = Observer(self.__observerTestMethod,self)
+    eq_(tester.observerTestVar, 5)
 
-        note = Notification('ObserverTestNote',5)
-        obsrvr.notify_observer(note)
 
-        self.assertEqual(True, self.__observerTestVar == 5)
+def testCompareNotifyContext():
+    """ObserverTest: Test compare_notify_context()"""
+    tester = ObserverTester()
+    observer = Observer(tester.observerTestMethod, tester)
 
-    def testCompareNotifyContext(self):
-        """ObserverTest: Test compare_notify_context()"""
+    ok_(not observer.compare_notify_context(object()))
+    ok_(observer.compare_notify_context(tester))
 
-        obsrvr = Observer(self.__observerTestMethod, self)
 
-        negTestObj = object()
+def testNameAccessors():
+    """NotificationTest: Test Name Accessors"""
+    note = Notification('TestNote')
+    eq_(note.get_name(), 'TestNote')
 
-        self.assertEqual(False, obsrvr.compare_notify_context(negTestObj))
-        self.assertEqual(True, obsrvr.compare_notify_context(self))
 
-    def testNameAccessors(self):
-        """NotificationTest: Test Name Accessors"""
+def testBodyAccessors():
+    """NotificationTest: Test Body Accessors"""
+    note = Notification(None)
+    note.set_body(5)
 
-        note = Notification('TestNote')
+    eq_(note.get_body(), 5)
 
-        self.assertEqual(True, note.get_name() == 'TestNote')
 
-    def testBodyAccessors(self):
-        """NotificationTest: Test Body Accessors"""
+def testConstructor():
+    """NotificationTest: Test Constructor"""
+    note = Notification('TestNote', 5, 'TestNoteType')
 
-        note = Notification(None)
-        note.set_body(5)
-
-        self.assertEqual(True, note.get_body() == 5)
-
-    def testConstructor(self):
-        """NotificationTest: Test Constructor"""
-
-        note = Notification('TestNote',5,'TestNoteType')
-
-        self.assertEqual(True, note.get_name() == 'TestNote')
-        self.assertEqual(True, note.get_body() == 5)
-        self.assertEqual(True, note.get_type() == 'TestNoteType')
+    eq_(note.get_name(), 'TestNote')
+    eq_(note.get_body(), 5)
+    eq_(note.get_type(), 'TestNoteType')
