@@ -28,7 +28,6 @@ class Proxy(Notifier, IProxy, INotifier):
     @see: L{Model<org.puremvc_multicore.as3.core.model.Model>}
     """
     NAME = None
-    facade = None
     proxy_name = None
     data = None
 
