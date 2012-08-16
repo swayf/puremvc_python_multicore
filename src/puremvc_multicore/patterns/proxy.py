@@ -42,7 +42,7 @@ class Proxy(Notifier, IProxy, INotifier):
         if proxy_name is None:
             raise ValueError("Proxy name cannot be None")
         self.proxy_name = proxy_name
-        if data:
+        if data is not None:
             self.set_data(data)
 
 
